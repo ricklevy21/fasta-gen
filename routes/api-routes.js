@@ -14,7 +14,7 @@ module.exports = function(app) {
     // @route: POST /
     // @desc: Add one record to the fasta table
     app.post("/api/fasta", function(req, res) {
-        db.Fasta.create(req.body).then(function(dbFasta) {
+        db.Fasta.bulkCreate(req.body).then(function(dbFasta) {
             res.json(dbFasta);
         });
     });

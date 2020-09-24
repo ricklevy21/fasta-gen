@@ -21,6 +21,9 @@
   "homepage": "https://github.com/ricklevy21/fasta-gen#readme",
   "dependencies": {
     "express": "^4.17.1",
-    "nodemon": "^2.0.4"
+    "express-handlebars": "^5.1.0",
+    "mysql2": "^2.2.5",
+    "nodemon": "^2.0.4",
+    "sequelize": "^6.3.5"
   }
 }

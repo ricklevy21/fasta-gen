@@ -1,21 +1,15 @@
-//IMPORT DEPENDENCIES
-var db = require("../models");
+const express = require("express");
+const router = express.Router();
+const csvController = require("../controllers/fasta/csv");
+const upload = require("../middlewares/upload");
 
-module.exports = function(app) {
-    // @route: GET /
-    // @desc: Read all records from the fasta table
-    app.get("/api/fasta", function(req, res) {
-        db.Fasta.findAll({
-        }).then(function(dbFasta) {
-            res.json(dbFasta);
-        });
-    });
+let routes = (app) => {
+    //POST /api/csv/upload
+  router.post("/upload", upload.single("file"), csvController.upload);
+    //GET /api/csv/sequences
+  router.get("/sequences", csvController.getSequences);
 
-    // @route: POST /
-    // @desc: Add one record to the fasta table
-    app.post("/api/fasta", function(req, res) {
-        db.Fasta.bulkCreate(req.body).then(function(dbFasta) {
-            res.json(dbFasta);
-        });
-    });
+  app.use("/api/csv", router);
 };
+
+module.exports = routes;

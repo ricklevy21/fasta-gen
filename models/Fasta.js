@@ -1,8 +1,8 @@
-module.exports = function(sequelize, DataTypes) {
-    var Fasta = sequelize.define("Fasta", {
-        catalogNumber : DataTypes.STRING,
-        description: DataTypes.STRING,
-        sequence: DataTypes.TEXT
+module.exports = (sequelize, Sequelize) => {
+    const Fasta = sequelize.define("Fasta", {
+        catalogNumber : Sequelize.STRING,
+        description: Sequelize.STRING,
+        sequence: Sequelize.TEXT
     });
 
     return Fasta;

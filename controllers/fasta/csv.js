@@ -1,6 +1,6 @@
+//dependencies
 const db = require("../../models");
 const Fasta = db.fasta;
-
 const fs = require("fs");
 const csv = require("fast-csv");
 

@@ -1,5 +1,7 @@
+//dependencies
 const multer = require("multer");
 
+//only allow for csv files to be uploaded
 const csvFilter = (req, file, cb) => {
   if (file.mimetype.includes("csv")) {
     cb(null, true);
@@ -8,6 +10,7 @@ const csvFilter = (req, file, cb) => {
   }
 };
 
+//send the file to a location on the server and give a unique name
 var storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, __basedir + "/resources/static/assets/uploads/");
@@ -18,5 +21,7 @@ var storage = multer.diskStorage({
   },
 });
 
+//function to upload the file
 var uploadFile = multer({ storage: storage, fileFilter: csvFilter });
+
 module.exports = uploadFile;

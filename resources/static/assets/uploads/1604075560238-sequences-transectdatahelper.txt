@@ -1,0 +1,11 @@
+=VLOOKUP(C2,$H$2:$I$100,2,FALSE)
+
+
+='Q:\Research\Grants and Funding\HighLineCanalConservancy_2019\7_Project\Stormwater\HLC-Stormwater_dataEntry\[TEMPLATE_HLC-Stormwater_VegetationMonitoring_WithCANOPY_DataEntry_2020.xlsm]DataEntry'
+
+
+=DataEntry
+
+
+=AVERAGE(H11:K11)
+

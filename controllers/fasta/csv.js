@@ -56,8 +56,29 @@ const upload = async (req, res) => {
         });
       });
   };
+
+  const updateSequences = (req, res) => {
+    Fasta.update({
+      scientificName: req.body.scientificName,
+      collectionCode: req.body.collectionCode,
+      family: req.body.family,
+      eventDate: req.body.eventDate,
+      recordedBy: req.body.recordedBy,
+      country: req.body.country,
+      decimalLatitude: req.body.decimalLatitude,
+      decimalLongitude: req.body.decimalLongitude
+    }, {
+      where: {
+        catlogNumber: req.body.catalogNumber
+      }
+    })
+    .then(function(dbFasta){
+      res.json(dbFasta)
+    })
+  }
   
   module.exports = {
     upload,
-    getSequences
+    getSequences,
+    updateSequences
   };

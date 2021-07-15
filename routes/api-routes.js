@@ -4,10 +4,14 @@ const csvController = require("../controllers/fasta/csv");
 const upload = require("../middlewares/upload");
 
 let routes = (app) => {
-    //POST /api/csv/upload
+  //POST /api/csv/upload
   router.post("/upload", upload.single("file"), csvController.upload);
-    //GET /api/csv/sequences
+    
+  //GET /api/csv/sequences
   router.get("/sequences", csvController.getSequences);
+  
+  //PUT /api/csv/update
+  router.put("/update", csvController.updateSequences);
 
   app.use("/api/csv", router);
 };

@@ -36,7 +36,7 @@ let sequences
 
 //FUNCTIONS
 //---------------------------------------------------------------------------------------------------------------
-    //function to query each record in the database
+    //function to query every record in the database
     function getAllSequences() {
         $.ajax({
             url: "http://localhost:8080/api/csv/sequences",
@@ -48,10 +48,11 @@ let sequences
         })
     }
 
-    //Loo through sequences returned from DB and preform GBIF API query for each. Then add selected data to the sequences object.
+
+    //Loop through sequences returned from DB and preform GBIF API query for each. Then add selected data to the sequences object.
     function getGBIF() {
         for (let i = 0; i < sequences.length; i++){
-            let queryURL = "https://api.gbif.org/v1/occurrence/search/?q="+sequences[i].catalogNumber
+            let queryURL = "https://api.gbif.org/v1/occurrence/search/?catalogNumber="+sequences[i].catalogNumber
             $.ajax({
                 url: queryURL,
                 method: "GET",
@@ -78,7 +79,6 @@ let sequences
             })
         }
     }
-
 
 
 

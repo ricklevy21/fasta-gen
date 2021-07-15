@@ -1,5 +1,12 @@
 $(document).ready(function() {
 
+//GLOABL VARIABLES
+//---------------------------------------------------------------------------------------------------------------
+let sequences
+
+//EVENT LISTENERS
+//---------------------------------------------------------------------------------------------------------------
+
     //event listener to send csv to server and upload to database
     $("#uploadCSV").submit(function(e) {
         $.ajax({
@@ -27,7 +34,8 @@ $(document).ready(function() {
         console.log("select sequences")
     })
 
-
+//FUNCTIONS
+//---------------------------------------------------------------------------------------------------------------
     //function to query each record in the database
     function getAllSequences() {
         $.ajax({
@@ -35,9 +43,27 @@ $(document).ready(function() {
             type: "GET"
         })
         .then((data) => {
-            console.log(data)
+            sequences = data
+            console.log(sequences)
+            getGBIF()
         })
     }
+
+    //function to go through each object in sequences varable, preform GBIF API query, adding new data to each object in sequences variable
+    function getGBIF() {
+        for (let i = 0; i < sequences.length; i++){
+            let queryURL = "https://api.gbif.org/v1/occurrence/search/?q="+sequences[i].catalogNumber
+            $.ajax({
+                url: queryURL,
+                method: "GET",
+            }).then(function(response){
+                var gbifRecord = response.results[0]
+                console.log(gbifRecord.catalogNumber, gbifRecord.scientificName)
+            })
+        }
+    }
+
+
 
 
 });

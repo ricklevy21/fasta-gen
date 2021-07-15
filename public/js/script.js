@@ -1,8 +1,7 @@
 $(document).ready(function() {
 
-    // using jQuery
-    $("#2020data").submit(function(e) {
-
+    //event listener to send csv to server and upload to database
+    $("#uploadCSV").submit(function(e) {
         $.ajax({
         url: "http://localhost:8080/api/csv/upload",
         type: "POST",
@@ -14,7 +13,11 @@ $(document).ready(function() {
         return false;
     });
 
-
+    //event listener to display all sequences in database to page
+    $("#selectSequences").submit(function(e) {
+        e.preventDefault()
+        console.log("button clicked")
+    })
 
 
 });

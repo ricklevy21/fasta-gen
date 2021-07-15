@@ -44,12 +44,11 @@ let sequences
         })
         .then((data) => {
             sequences = data
-            console.log(sequences)
             getGBIF()
         })
     }
 
-    //function to go through each object in sequences varable, preform GBIF API query, adding new data to each object in sequences variable
+    //Loo through sequences returned from DB and preform GBIF API query for each. Then add selected data to the sequences object.
     function getGBIF() {
         for (let i = 0; i < sequences.length; i++){
             let queryURL = "https://api.gbif.org/v1/occurrence/search/?q="+sequences[i].catalogNumber
@@ -58,7 +57,24 @@ let sequences
                 method: "GET",
             }).then(function(response){
                 var gbifRecord = response.results[0]
-                console.log(gbifRecord.catalogNumber, gbifRecord.scientificName)
+            //add selected fields from GBIF to the seqences object
+                //scientificName
+                sequences[i].scientificName = gbifRecord.scientificName
+                //collectionCode
+                sequences[i].collectionCode = gbifRecord.collectionCode
+                //family
+                sequences[i].family = gbifRecord.family
+                //eventDate
+                sequences[i].eventDate = gbifRecord.eventDate
+                //recordedBy
+                sequences[i].recordedBy = gbifRecord.recordedBy
+                //country
+                sequences[i].country = gbifRecord.country
+                //decimalLatitude
+                sequences[i].decimalLatitude = gbifRecord.decimalLatitude
+                //decimalLongitude
+                sequences[i].decimalLongitude = gbifRecord.decimalLongitude
+                console.log(sequences[i])
             })
         }
     }

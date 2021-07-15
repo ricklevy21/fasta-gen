@@ -13,11 +13,31 @@ $(document).ready(function() {
         return false;
     });
 
+
+    //event listener to sync GBIF data
+    $("#syncGBIF").submit(function(e) {
+        e.preventDefault()
+        getAllSequences()
+    })
+
+
     //event listener to display all sequences in database to page
     $("#selectSequences").submit(function(e) {
         e.preventDefault()
-        console.log("button clicked")
+        console.log("select sequences")
     })
+
+
+    //function to query each record in the database
+    function getAllSequences() {
+        $.ajax({
+            url: "http://localhost:8080/api/csv/sequences",
+            type: "GET"
+        })
+        .then((data) => {
+            console.log(data)
+        })
+    }
 
 
 });

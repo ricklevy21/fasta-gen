@@ -32,7 +32,6 @@ let sequences
     $("#selectSequences").submit(function(e) {
         e.preventDefault()
         console.log("select sequences")
-        updateRecords()
     })
 
 //FUNCTIONS
@@ -77,7 +76,14 @@ let sequences
                 //decimalLongitude
                 sequences[i].decimalLongitude = gbifRecord.decimalLongitude
                 console.log(sequences[i])
-            })
+            }).done(function() {
+                updateRecords()
+            }).catch((error) => {
+                res.status(500).send({
+                  message: "Failed to sync data from GBIF.",
+                  error: error.message,
+                });
+              });
         }
     }
 
@@ -88,9 +94,12 @@ let sequences
                 url: "http://localhost:8080/api/csv/update",
                 type: "PUT",
                 data: sequences[i]
-            }).then(function(response){
-                console.log(response)
-            })
+            }).catch((error) => {
+                res.status(500).send({
+                  message: "Failed to update database.",
+                  error: error.message,
+                });
+              });
         }        
     }
 

@@ -4,8 +4,13 @@ $(document).ready(function() {
 //---------------------------------------------------------------------------------------------------------------
 let sequences
 
+let listOfSequences = []
+
 //EVENT LISTENERS
 //---------------------------------------------------------------------------------------------------------------
+    //hide elements
+    $("#sequenceList").hide()
+    $("#downloadFiles").hide()
 
     //event listener to send csv to server and upload to database
     $("#uploadCSV").submit(function(e) {
@@ -31,12 +36,12 @@ let sequences
     //event listener to display all sequences in database to page
     $("#selectSequences").submit(function(e) {
         e.preventDefault()
-        console.log("select sequences")
+        listSequences()
     })
 
 //FUNCTIONS
 //---------------------------------------------------------------------------------------------------------------
-    //function to query every record in the database
+    //function to query every record in the database and then prefrom API call to GBIF with data returned
     function getAllSequences() {
         $.ajax({
             url: "http://localhost:8080/api/csv/sequences",
@@ -101,6 +106,29 @@ let sequences
                 });
               });
         }        
+    }
+
+    //Show all sequences in select list
+    function listSequences() {
+        $.ajax({
+            url: "http://localhost:8080/api/csv/sequences",
+            type: "GET"
+        })
+        .then((sequenceList) => {
+            listOfSequences = []
+            $.each(sequenceList, function(i, sequenceListItem) {
+                listOfSequences.push('<option value='+sequenceListItem.id+'>'
+                +sequenceListItem.catalogNumber+'  |  '
+                +sequenceListItem.scientificName+
+                '</option>')
+            })
+        }).then(function(){
+            $('#sequenceList').empty();
+            $('#sequenceList').append(listOfSequences.join(''));
+            $('#sequenceList').show();
+            $('#downloadFiles').show();
+
+        })
     }
 
 

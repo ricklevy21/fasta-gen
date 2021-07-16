@@ -32,6 +32,7 @@ let sequences
     $("#selectSequences").submit(function(e) {
         e.preventDefault()
         console.log("select sequences")
+        updateRecords()
     })
 
 //FUNCTIONS
@@ -78,6 +79,19 @@ let sequences
                 console.log(sequences[i])
             })
         }
+    }
+
+    //Update each record in the database with the newly requested data from GBIF.
+    function updateRecords() {
+        for (let i = 0; i < sequences.length; i++){
+            $.ajax({
+                url: "http://localhost:8080/api/csv/update",
+                type: "PUT",
+                data: sequences[i]
+            }).then(function(response){
+                console.log(response)
+            })
+        }        
     }
 
 

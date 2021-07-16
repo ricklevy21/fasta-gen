@@ -69,7 +69,7 @@ const upload = async (req, res) => {
       decimalLongitude: req.body.decimalLongitude
     }, {
       where: {
-        catlogNumber: req.body.catalogNumber
+        catalogNumber: req.body.catalogNumber
       }
     })
     .then(function(dbFasta){

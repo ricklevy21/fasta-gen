@@ -9,7 +9,7 @@ let listOfSequences = []
 //EVENT LISTENERS
 //---------------------------------------------------------------------------------------------------------------
     //hide elements
-    $("#sequenceList").hide()
+    $("#sequenceListForm").hide()
     $("#downloadFiles").hide()
 
     //event listener to send csv to server and upload to database
@@ -125,7 +125,7 @@ let listOfSequences = []
         }).then(function(){
             $('#sequenceList').empty();
             $('#sequenceList').append(listOfSequences.join(''));
-            $('#sequenceList').show();
+            $('#sequenceListForm').show();
             $('#downloadFiles').show();
 
         })

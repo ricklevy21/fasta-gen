@@ -13,6 +13,9 @@ let routes = (app) => {
   //PUT /api/csv/update
   router.put("/update", csvController.updateSequences);
 
+  //GET /api/csv/sequencesDownload
+  router.get("/sequencesDownload", csvController.getSequencesForDownload);
+
   app.use("/api/csv", router);
 };
 

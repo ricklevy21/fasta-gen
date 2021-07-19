@@ -4,6 +4,7 @@ const Fasta = db.fasta;
 const fs = require("fs");
 const csv = require("fast-csv");
 
+//upload csv into db
 const upload = async (req, res) => {
     try {
       if (req.file == undefined) {
@@ -44,6 +45,7 @@ const upload = async (req, res) => {
     }
   };
   
+  //get all records from db
   const getSequences = (req, res) => {
     Fasta.findAll()
       .then((data) => {
@@ -57,6 +59,8 @@ const upload = async (req, res) => {
       });
   };
 
+
+  //update db records with data from gbif
   const updateSequences = (req, res) => {
     Fasta.update({
       scientificName: req.body.scientificName,
@@ -76,9 +80,27 @@ const upload = async (req, res) => {
       res.json(dbFasta)
     })
   }
+
+  //get select records from db - queried on ID
+  const getSequencesForDownload = (req, res) => {
+    Fasta.findAll({
+      where: {
+        id: req.body
+      }
+    }).then((data) => {
+        res.send(data);
+      })
+      .catch((err) => {
+        res.status(500).send({
+          message:
+            err.message || "Some error occurred while retrieving sequences from database.",
+        });
+      });
+  };
   
   module.exports = {
     upload,
     getSequences,
-    updateSequences
+    updateSequences,
+    getSequencesForDownload
   };

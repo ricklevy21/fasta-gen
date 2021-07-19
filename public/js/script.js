@@ -142,7 +142,6 @@ let listOfSequences = []
     var selectedSeqs = $('#sequenceList :selected').map(function(i, el) {
         return $(el).val()
     })
-    console.log(selectedSeqs)
     var seqsForDownload = []
     for (var i = 0; i < selectedSeqs.length; i++){
         seqsForDownload.push(selectedSeqs[i])

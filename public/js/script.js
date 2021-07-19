@@ -9,11 +9,11 @@ let listOfSequences = []
 //EVENT LISTENERS
 //---------------------------------------------------------------------------------------------------------------
     //hide elements
-    $("#sequenceListForm").hide()
-    $("#downloadFiles").hide()
+    $('#sequenceListForm').hide()
+    $('#downloadFiles').hide()
 
     //event listener to send csv to server and upload to database
-    $("#uploadCSV").submit(function(e) {
+    $('#uploadCSV').submit(function(e) {
         $.ajax({
         url: "http://localhost:8080/api/csv/upload",
         type: "POST",
@@ -27,16 +27,22 @@ let listOfSequences = []
 
 
     //event listener to sync GBIF data
-    $("#syncGBIF").submit(function(e) {
+    $('#syncGBIF').submit(function(e) {
         e.preventDefault()
         getAllSequences()
     })
 
 
     //event listener to display all sequences in database to page
-    $("#selectSequences").submit(function(e) {
+    $('#selectSequences').submit(function(e) {
         e.preventDefault()
         listSequences()
+    })
+
+    //event listener for the download files button
+    $('#downloadFiles').click(function(e) {
+        e.preventDefault()
+        downloadFiles()
     })
 
 //FUNCTIONS
@@ -131,6 +137,17 @@ let listOfSequences = []
         })
     }
 
-
+    //submit selected sequences for file download
+    function downloadFiles() {
+    var selectedSeqs = $('#sequenceList :selected').map(function(i, el) {
+        return $(el).val()
+    })
+    console.log(selectedSeqs)
+    var seqsForDownload = []
+    for (var i = 0; i < selectedSeqs.length; i++){
+        seqsForDownload.push(selectedSeqs[i])
+    }
+    console.log(seqsForDownload)
+    }
 
 });

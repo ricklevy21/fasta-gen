@@ -1,6 +1,7 @@
 //dependencies
 const express = require("express");
 const exphbs = require("express-handlebars");
+const fs = require("fs");
 
 // require models for syncing
 const db = require("./models");

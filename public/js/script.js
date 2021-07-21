@@ -160,10 +160,11 @@ let dataForDownload = []
             }
         }
 
+
     //query database for sequences to download
     function querySeqsForDownload(){
+        dataForDownload = []
         for(let i = 0; i < queryList.length; i++){
-            console.log(queryList)
             $.ajax({
                 url: "/api/csv/sequencesDownload/"+queryList[i],
                 method: "GET",
@@ -171,17 +172,44 @@ let dataForDownload = []
                 contentType: "application/json",
             })
             .then((res) => {
-                console.log(res)
-            }).catch((error) => {
+                dataForDownload.push(res[0])
+            })
+            .catch((error) => {
                 res.status(500).send({
-                  message: "Failed to update database.",
-                  error: error.message,
+                  message: "Failed to retrieve data from database.",
+                  error: error.message
                 });
-              });
+            })
         }
-        }
+    }
 
 
-    
+
+
+    // //function that writes data to a FASTA file
+    // function writeFASTA(fileName, data) {
+    //     fs.writeFile(fileName, generateFASTA(data), function(err) {
+    //         if (err) {
+    //             return console.log(err);
+    //         }
+
+    //         console.log("Success!")
+    //     })
+    // }
+
+    // //function to initialize writing a FASTA file
+    // function initFASTA() {
+    //     writeFASTA("FASTA-GEN.fasta", dataForDownload)
+    // }
+
+    // //function that defines how to write the fasta file
+    // function generateFASTA(data) {
+    //     return `
+    // > ${data.catalogNumber} ${data.description}
+    // \n
+    // ${data.sequence}
+    //     `;
+    // }
+
 
 });

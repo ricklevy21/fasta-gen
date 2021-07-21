@@ -85,9 +85,10 @@ const upload = async (req, res) => {
   const getSequencesForDownload = (req, res) => {
     Fasta.findAll({
       where: {
-        id: req.body
+        id: req.params.id
       }
-    }).then((data) => {
+    })
+      .then((data) => {
         res.send(data);
       })
       .catch((err) => {

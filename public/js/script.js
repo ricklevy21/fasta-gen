@@ -6,6 +6,11 @@ let sequences
 
 let listOfSequences = []
 
+let queryList
+
+let dataForDownload = []
+
+
 //EVENT LISTENERS
 //---------------------------------------------------------------------------------------------------------------
     //hide elements
@@ -15,7 +20,7 @@ let listOfSequences = []
     //event listener to send csv to server and upload to database
     $('#uploadCSV').submit(function(e) {
         $.ajax({
-        url: "http://localhost:8080/api/csv/upload",
+        url: "/api/csv/upload",
         type: "POST",
         data: new FormData(this),
         processData: false,
@@ -42,7 +47,7 @@ let listOfSequences = []
     //event listener for the download files button
     $('#downloadFiles').click(function(e) {
         e.preventDefault()
-        downloadFiles()
+        buildQueryList()
     })
 
 //FUNCTIONS
@@ -50,7 +55,7 @@ let listOfSequences = []
     //function to query every record in the database and then prefrom API call to GBIF with data returned
     function getAllSequences() {
         $.ajax({
-            url: "http://localhost:8080/api/csv/sequences",
+            url: "/api/csv/sequences",
             type: "GET"
         })
         .then((data) => {
@@ -86,7 +91,6 @@ let listOfSequences = []
                 sequences[i].decimalLatitude = gbifRecord.decimalLatitude
                 //decimalLongitude
                 sequences[i].decimalLongitude = gbifRecord.decimalLongitude
-                console.log(sequences[i])
             }).done(function() {
                 updateRecords()
             }).catch((error) => {
@@ -102,7 +106,7 @@ let listOfSequences = []
     function updateRecords() {
         for (let i = 0; i < sequences.length; i++){
             $.ajax({
-                url: "http://localhost:8080/api/csv/update",
+                url: "/api/csv/update",
                 type: "PUT",
                 data: sequences[i]
             }).catch((error) => {
@@ -117,7 +121,7 @@ let listOfSequences = []
     //Show all sequences in select list
     function listSequences() {
         $.ajax({
-            url: "http://localhost:8080/api/csv/sequences",
+            url: "/api/csv/sequences",
             type: "GET"
         })
         .then((sequenceList) => {
@@ -138,15 +142,46 @@ let listOfSequences = []
     }
 
     //submit selected sequences for file download
-    function downloadFiles() {
-    var selectedSeqs = $('#sequenceList :selected').map(function(i, el) {
-        return $(el).val()
-    })
-    var seqsForDownload = []
-    for (var i = 0; i < selectedSeqs.length; i++){
-        seqsForDownload.push(selectedSeqs[i])
-    }
-    console.log(seqsForDownload)
-    }
+    function buildQueryList() {
+            //empty queryList
+            queryList = []
+            //get all sequences selected by user
+            var selectedSeqs = $('#sequenceList :selected').map(function(i, el) {
+                return $(el).val()
+            })
+            if (selectedSeqs.length == 0){
+                alert("Please select at least 1 sequence")
+            }else {
+                //add each selection to the global array 'queryList'
+                for (var i = 0; i < selectedSeqs.length; i++){
+                    queryList.push(selectedSeqs[i])
+                }
+                querySeqsForDownload()
+            }
+        }
+
+    //query database for sequences to download
+    function querySeqsForDownload(){
+        for(let i = 0; i < queryList.length; i++){
+            console.log(queryList)
+            $.ajax({
+                url: "/api/csv/sequencesDownload/"+queryList[i],
+                method: "GET",
+                // data: JSON.stringify(queryList),
+                contentType: "application/json",
+            })
+            .then((res) => {
+                console.log(res)
+            }).catch((error) => {
+                res.status(500).send({
+                  message: "Failed to update database.",
+                  error: error.message,
+                });
+              });
+        }
+        }
+
+
+    
 
 });

@@ -89,7 +89,10 @@ const upload = async (req, res) => {
       }
     })
       .then((data) => {
-        res.send(data);
+        for (let i =0; i < data.length; i++){
+          console.log(data[i].dataValues)
+          writeFASTA("FASTA-GEN.fasta", data[i].dataValues)
+        }
       })
       .catch((err) => {
         res.status(500).send({
@@ -98,6 +101,25 @@ const upload = async (req, res) => {
         });
       });
   };
+
+
+
+  //function that writes data to a FASTA file
+  function writeFASTA(fileName, data) {
+      fs.appendFile(fileName, `${generateFASTA(data)}`+`\n`, function(err) {
+          if (err) {
+              return console.log(err);
+          }
+
+          console.log("Success!")
+      })
+  }
+
+  //function that defines how to write the fasta file
+  function generateFASTA(data) {
+      return `> ${data.catalogNumber} ${data.description}\n${data.sequence}`;
+  }
+
   
   module.exports = {
     upload,

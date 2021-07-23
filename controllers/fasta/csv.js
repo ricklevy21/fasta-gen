@@ -106,7 +106,7 @@ const upload = async (req, res) => {
 
   //function that writes data to a FASTA file
   function writeFASTA(fileName, data) {
-      fs.appendFile(fileName, `${generateFASTA(data)}`+`\n`, function(err) {
+      fs.appendFile(`./resources/static/assets/downloads/${fileName}`, `${generateFASTA(data)}`+`\n`, function(err) {
           if (err) {
               return console.log(err);
           }

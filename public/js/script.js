@@ -171,9 +171,9 @@ let dataForDownload = []
                 // data: JSON.stringify(queryList),
                 contentType: "application/json",
             })
-            .then((res) => {
-                dataForDownload.push(res[0])
-            })
+            // .then((res) => {
+            //     dataForDownload.push(res[0])
+            // })
             .catch((error) => {
                 res.status(500).send({
                   message: "Failed to retrieve data from database.",
@@ -183,33 +183,17 @@ let dataForDownload = []
         }
     }
 
-
-
-
-    // //function that writes data to a FASTA file
-    // function writeFASTA(fileName, data) {
-    //     fs.writeFile(fileName, generateFASTA(data), function(err) {
-    //         if (err) {
-    //             return console.log(err);
-    //         }
-
-    //         console.log("Success!")
-    //     })
-    // }
-
-    // //function to initialize writing a FASTA file
-    // function initFASTA() {
-    //     writeFASTA("FASTA-GEN.fasta", dataForDownload)
-    // }
-
-    // //function that defines how to write the fasta file
-    // function generateFASTA(data) {
-    //     return `
-    // > ${data.catalogNumber} ${data.description}
-    // \n
-    // ${data.sequence}
-    //     `;
-    // }
-
+     Date.prototype.yyyymmdd = function() {
+        var mm = this.getMonth() + 1; // getMonth() is zero-based
+        var dd = this.getDate();
+      
+        return [this.getFullYear(),
+                (mm>9 ? '' : '0') + mm,
+                (dd>9 ? '' : '0') + dd
+               ].join('');
+      };
+      
+      var date = new Date();
+      console.log(date.yyyymmdd())
 
 });

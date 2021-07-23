@@ -90,8 +90,9 @@ const upload = async (req, res) => {
     })
       .then((data) => {
         for (let i =0; i < data.length; i++){
-          console.log(data[i].dataValues)
-          writeFASTA("FASTA-GEN.fasta", data[i].dataValues)
+          console.log(Date.now())
+          
+          writeFASTA(`${date.yyyymmdd()}_FASTA-GEN.fasta`, data[i].dataValues)
         }
       })
       .catch((err) => {
@@ -119,6 +120,20 @@ const upload = async (req, res) => {
   function generateFASTA(data) {
       return `> ${data.catalogNumber} ${data.description}\n${data.sequence}`;
   }
+
+  //create the data object for the download file name
+  Date.prototype.yyyymmdd = function() {
+    var mm = this.getMonth() + 1; // getMonth() is zero-based
+    var dd = this.getDate();
+  
+    return [this.getFullYear(),
+            (mm>9 ? '' : '0') + mm,
+            (dd>9 ? '' : '0') + dd
+           ].join('');
+  };
+  
+  var date = new Date();
+
 
   
   module.exports = {

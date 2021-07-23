@@ -10,6 +10,7 @@ let queryList
 
 let dataForDownload = []
 
+let showAlert = true
 
 //EVENT LISTENERS
 //---------------------------------------------------------------------------------------------------------------
@@ -67,6 +68,7 @@ let dataForDownload = []
 
     //Loop through sequences returned from DB and preform GBIF API query for each. Then add selected data to the sequences object.
     function getGBIF() {
+        showAlert=true
         for (let i = 0; i < sequences.length; i++){
             let queryURL = "https://api.gbif.org/v1/occurrence/search/?catalogNumber="+sequences[i].catalogNumber
             $.ajax({
@@ -93,6 +95,10 @@ let dataForDownload = []
                 sequences[i].decimalLongitude = gbifRecord.decimalLongitude
             }).done(function() {
                 updateRecords()
+                if (showAlert==true) {
+                    alert ("GBIF data successfully synced.");
+                    showAlert = false;
+                }
             }).catch((error) => {
                 res.status(500).send({
                   message: "Failed to sync data from GBIF.",
@@ -115,7 +121,7 @@ let dataForDownload = []
                   error: error.message,
                 });
               });
-        }        
+        }
     }
 
     //Show all sequences in select list
@@ -182,18 +188,5 @@ let dataForDownload = []
             })
         }
     }
-
-     Date.prototype.yyyymmdd = function() {
-        var mm = this.getMonth() + 1; // getMonth() is zero-based
-        var dd = this.getDate();
-      
-        return [this.getFullYear(),
-                (mm>9 ? '' : '0') + mm,
-                (dd>9 ? '' : '0') + dd
-               ].join('');
-      };
-      
-      var date = new Date();
-      console.log(date.yyyymmdd())
 
 });

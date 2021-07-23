@@ -4,6 +4,7 @@ const Fasta = db.fasta;
 const fs = require("fs");
 const csv = require("fast-csv");
 
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //upload csv into db
 const upload = async (req, res) => {
     try {
@@ -45,6 +46,7 @@ const upload = async (req, res) => {
     }
   };
   
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   //get all records from db
   const getSequences = (req, res) => {
     Fasta.findAll()
@@ -59,7 +61,7 @@ const upload = async (req, res) => {
       });
   };
 
-
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   //update db records with data from gbif
   const updateSequences = (req, res) => {
     Fasta.update({
@@ -81,7 +83,8 @@ const upload = async (req, res) => {
     })
   }
 
-  //get select records from db - queried on ID
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  //get select records from db - queried on ID and make into a file
   const getSequencesForDownload = (req, res) => {
     Fasta.findAll({
       where: {
@@ -102,8 +105,6 @@ const upload = async (req, res) => {
         });
       });
   };
-
-
 
   //function that writes data to a FASTA file
   function writeFASTA(fileName, data) {
@@ -134,7 +135,8 @@ const upload = async (req, res) => {
   
   var date = new Date();
 
-
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//
   
   module.exports = {
     upload,

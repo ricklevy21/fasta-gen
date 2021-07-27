@@ -3,6 +3,7 @@ const db = require("../../models");
 const Fasta = db.fasta;
 const fs = require("fs");
 const csv = require("fast-csv");
+const baseUrl = "http://localhost:8080/files/";
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //upload csv into db
@@ -92,12 +93,15 @@ const upload = async (req, res) => {
       }
     })
       .then((data) => {
+        res.send(`${date.yyyymmdd()}_FASTA-GEN.fasta`)
         for (let i =0; i < data.length; i++){
           console.log(Date.now())
-          
           writeFASTA(`${date.yyyymmdd()}_FASTA-GEN.fasta`, data[i].dataValues)
         }
       })
+      // .then(function(){
+      //   res.send(fileName)
+      // })
       .catch((err) => {
         res.status(500).send({
           message:
@@ -136,11 +140,25 @@ const upload = async (req, res) => {
   var date = new Date();
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-//
+//download the specified file
+const downloadFile = (req, res) => {
+  const fileName = req.params.name;
+  const directoryPath = __basedir + "/resources/static/assets/downloads/";
+
+  res.download(directoryPath + fileName, fileName, (err) => {
+    if (err) {
+      res.status(500).send({
+        message: "Could not download the file" + err,
+      })
+    }
+  })
+
+}
   
   module.exports = {
     upload,
     getSequences,
     updateSequences,
-    getSequencesForDownload
+    getSequencesForDownload,
+    downloadFile
   };

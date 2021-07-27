@@ -16,6 +16,9 @@ let routes = (app) => {
   //GET /api/csv/sequencesDownload
   router.get("/sequencesDownload/:id", csvController.getSequencesForDownload);
 
+  //GET /api/csv/files
+  router.get("/files/:name", csvController.downloadFile);
+
   app.use("/api/csv", router);
 };
 

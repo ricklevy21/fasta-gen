@@ -12,11 +12,16 @@ let dataForDownload = []
 
 let showAlert = true
 
+let downloadFileName
+
 //EVENT LISTENERS
 //---------------------------------------------------------------------------------------------------------------
     //hide elements
     $('#sequenceListForm').hide()
     $('#downloadFiles').hide()
+    $('#downloadFasta').hide()
+    $('#downloadSourceMod').hide()
+
 
     //event listener to send csv to server and upload to database
     $('#uploadCSV').submit(function(e) {
@@ -177,9 +182,11 @@ let showAlert = true
                 // data: JSON.stringify(queryList),
                 contentType: "application/json",
             })
-            // .then((res) => {
-            //     dataForDownload.push(res[0])
-            // })
+            .then((res) => {
+               //console.log(res)
+               downloadFileName = res
+               requestFileForDownload()
+            })
             .catch((error) => {
                 res.status(500).send({
                   message: "Failed to retrieve data from database.",
@@ -187,6 +194,20 @@ let showAlert = true
                 });
             })
         }
+    }
+
+    //download the file to the client
+    function requestFileForDownload(){
+        console.log(downloadFileName)
+        $.ajax({
+            url: "/api/csv/files/"+downloadFileName,
+            method: "GET"
+        })
+        .then(function() {
+            var url = 'http://localhost:8080/api/csv/files/'+downloadFileName;
+            $("#downloadFasta").attr("href", url)
+            $("#downloadFasta").show()
+        })
     }
 
 });

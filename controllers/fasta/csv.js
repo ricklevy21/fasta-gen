@@ -73,7 +73,8 @@ const upload = async (req, res) => {
       recordedBy: req.body.recordedBy,
       country: req.body.country,
       decimalLatitude: req.body.decimalLatitude,
-      decimalLongitude: req.body.decimalLongitude
+      decimalLongitude: req.body.decimalLongitude,
+      institutionCode: req.body.institutionCode
     }, {
       where: {
         catalogNumber: req.body.catalogNumber

@@ -75,7 +75,7 @@ let downloadFileName
     function getGBIF() {
         showAlert=true
         for (let i = 0; i < sequences.length; i++){
-            let queryURL = "https://api.gbif.org/v1/occurrence/search/?catalogNumber="+sequences[i].catalogNumber
+            let queryURL = "https://api.gbif.org/v1/occurrence/search/?catalogNumber="+sequences[i].catalogNumber+"&collectionCode="+sequences[i].collectionCode
             $.ajax({
                 url: queryURL,
                 method: "GET",
@@ -98,6 +98,9 @@ let downloadFileName
                 sequences[i].decimalLatitude = gbifRecord.decimalLatitude
                 //decimalLongitude
                 sequences[i].decimalLongitude = gbifRecord.decimalLongitude
+                //institution code
+                sequences[i].institutionCode = gbifRecord.institutionCode
+                
             }).done(function() {
                 updateRecords()
                 if (showAlert==true) {

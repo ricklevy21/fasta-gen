@@ -100,6 +100,9 @@ let downloadFileName
                 sequences[i].decimalLongitude = gbifRecord.decimalLongitude
                 //institution code
                 sequences[i].institutionCode = gbifRecord.institutionCode
+                //identifiedBy
+                sequences[i].identifiedBy = gbifRecord.identifiedBy
+
                 
             }).done(function() {
                 updateRecords()
@@ -212,5 +215,8 @@ let downloadFileName
             $("#downloadFasta").show()
         })
     }
+
+
+
 
 });

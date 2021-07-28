@@ -74,7 +74,8 @@ const upload = async (req, res) => {
       country: req.body.country,
       decimalLatitude: req.body.decimalLatitude,
       decimalLongitude: req.body.decimalLongitude,
-      institutionCode: req.body.institutionCode
+      institutionCode: req.body.institutionCode,
+      identifiedBy: req.body.identifiedBy
     }, {
       where: {
         catalogNumber: req.body.catalogNumber
@@ -121,10 +122,33 @@ const upload = async (req, res) => {
           console.log("Success!")
       })
   }
+    //function that writes data to a source modifier file
+    function writeSourceMod(fileName, data) {
+      fs.appendFile(`./resources/static/assets/downloads/${fileName}`, `${generateFASTA(data)}`+`\n`, function(err) {
+          if (err) {
+              return console.log(err);
+          }
+
+          console.log("Success!")
+      })
+  }
 
   //function that defines how to write the fasta file
   function generateFASTA(data) {
       return `> ${data.catalogNumber} ${data.description}\n${data.sequence}`;
+  }
+
+  //function that defines how to write the source modifier file
+  function generateSourceMod(data) {
+    // format the date
+    const monthNames = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+    let eventDate = new Date(data.eventDate)
+    let month = (monthNames[eventDate.getMonth()])
+    let day = eventDate.getDate()
+    let year = eventDate.getFullYear()
+    let formattedDate = `${day}-${month}-${year}`
+    
+    return `Sequence_ID\tCollected_by\tCollection_date\tCountry\tIdentified_by\tLat_Lon\tSpecimen_voucher\n${data.catalogNumber}\t${data.recordedBy}\t${formattedDate}\t${data.country}\t${data.identifiedBy}\t${data.decimalLatitude} ${data.decimalLongitude}\t${data.institutionCode}:${data.collectionCode}:${data.catalogNumber}`;
   }
 
   //create the data object for the download file name

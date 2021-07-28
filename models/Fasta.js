@@ -11,7 +11,8 @@ module.exports = (sequelize, Sequelize) => {
         country : Sequelize.STRING,
         decimalLatitude : Sequelize.STRING,
         decimalLongitude : Sequelize.STRING,
-        institutionCode : Sequelize.STRING
+        institutionCode : Sequelize.STRING,
+        identifiedBy: Sequelize.STRING
     });
 
     return Fasta;

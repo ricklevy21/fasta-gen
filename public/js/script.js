@@ -190,8 +190,10 @@ let downloadFileName
             })
             .then((res) => {
                //console.log(res)
-               downloadFileName = res
+               downloadFileName = res[0]
+               sourceModFileName = res[1]
                requestFileForDownload()
+               requestModsFileForDownload()
             })
             .catch((error) => {
                 res.status(500).send({
@@ -202,7 +204,7 @@ let downloadFileName
         }
     }
 
-    //download the file to the client
+    //download the fasta file to the client
     function requestFileForDownload(){
         console.log(downloadFileName)
         $.ajax({
@@ -213,6 +215,22 @@ let downloadFileName
             var url = 'http://localhost:8080/api/csv/files/'+downloadFileName;
             $("#downloadFasta").attr("href", url)
             $("#downloadFasta").show()
+            
+        })
+    }
+
+    //download the source mod file to the client
+    function requestModsFileForDownload(){
+        console.log(sourceModFileName)
+        $.ajax({
+            url: "/api/csv/files/"+sourceModFileName,
+            method: "GET"
+        })
+        .then(function() {
+            var url = 'http://localhost:8080/api/csv/files/'+sourceModFileName;
+            $("#downloadSourceMod").attr("href", url)
+            $("#downloadSourceMod").show()
+            
         })
     }
 

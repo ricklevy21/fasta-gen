@@ -95,15 +95,13 @@ const upload = async (req, res) => {
       }
     })
       .then((data) => {
-        res.send(`${date.yyyymmdd()}_FASTA-GEN.fasta`)
+        res.send([`${date.yyyymmdd()}_FASTA-GEN.fasta`,`${date.yyyymmdd()}_FASTA-GEN_mods.txt`])
         for (let i =0; i < data.length; i++){
           console.log(Date.now())
           writeFASTA(`${date.yyyymmdd()}_FASTA-GEN.fasta`, data[i].dataValues)
+          writeSourceMod(`${date.yyyymmdd()}_FASTA-GEN_mods.txt`, data[i].dataValues)
         }
       })
-      // .then(function(){
-      //   res.send(fileName)
-      // })
       .catch((err) => {
         res.status(500).send({
           message:
@@ -124,7 +122,7 @@ const upload = async (req, res) => {
   }
     //function that writes data to a source modifier file
     function writeSourceMod(fileName, data) {
-      fs.appendFile(`./resources/static/assets/downloads/${fileName}`, `${generateFASTA(data)}`+`\n`, function(err) {
+      fs.appendFile(`./resources/static/assets/downloads/${fileName}`, `${generateSourceMod(data)}`+`\n`, function(err) {
           if (err) {
               return console.log(err);
           }

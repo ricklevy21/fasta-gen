@@ -1,0 +1,12 @@
+Sequence_ID	Collected_by	Collection_date	Country	Identified_by	Lat_Lon	Specimen_voucher
+DBG-F-030613	Andrew W. Wilson; Gary Olds	9-Mar-2021	United States of America	Andrew W. Wilson	39.732605 -104.960395	DBG:DBG:DBG-F-030613
+Sequence_ID	Collected_by	Collection_date	Country	Identified_by	Lat_Lon	Specimen_voucher
+DBG-F-030552	Ed Lubow; Ikuko Lubow; Andrew W. wilson	18-Jul-2020	United States of America	Ed Lubow	38.861 -104.655	DBG:DBG:DBG-F-030552
+Sequence_ID	Collected_by	Collection_date	Country	Identified_by	Lat_Lon	Specimen_voucher
+DBG-F-030545	Andrew W. Wilson; Ed Lubow; Ikuko Lubow	18-Jul-2020	United States of America	Andrew W. Wilson	38.866 -104.652	DBG:DBG:DBG-F-030545
+Sequence_ID	Collected_by	Collection_date	Country	Identified_by	Lat_Lon	Specimen_voucher
+DBG-F-030613	Andrew W. Wilson; Gary Olds	9-Mar-2021	United States of America	Andrew W. Wilson	39.732605 -104.960395	DBG:DBG:DBG-F-030613
+Sequence_ID	Collected_by	Collection_date	Country	Identified_by	Lat_Lon	Specimen_voucher
+DBG-F-030552	Ed Lubow; Ikuko Lubow; Andrew W. wilson	18-Jul-2020	United States of America	Ed Lubow	38.861 -104.655	DBG:DBG:DBG-F-030552
+Sequence_ID	Collected_by	Collection_date	Country	Identified_by	Lat_Lon	Specimen_voucher
+DBG-F-030545	Andrew W. Wilson; Ed Lubow; Ikuko Lubow	18-Jul-2020	United States of America	Andrew W. Wilson	38.866 -104.652	DBG:DBG:DBG-F-030545

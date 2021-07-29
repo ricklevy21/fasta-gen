@@ -19,6 +19,9 @@ let routes = (app) => {
   //GET /api/csv/files
   router.get("/files/:name", csvController.downloadFile);
 
+  //reset files on backend
+  router.post("/reset", csvController.resetFiles);
+
   app.use("/api/csv", router);
 };
 

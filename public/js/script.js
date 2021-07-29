@@ -23,11 +23,14 @@ let downloadFileName
     $('#downloadSourceMod').hide()
 
 
-    // //event listener to erase all files in resources\static\assets\downloads + uploads and create stub source mod file
-    // $(window).on("load",function(){
-    //     //call api to run function on backend
-    //     console.log('file erased')
-    // })
+    //event listener to erase all files in resources\static\assets\downloads + uploads and create stub source mod file
+    $(window).on("load",function(){
+        //call api to run function on backend
+        $.ajax({
+            url: "/api/csv/reset",
+            type: "POST"
+        })
+    })
 
 
     //event listener to send csv to server and upload to database
@@ -111,9 +114,7 @@ let downloadFileName
                 //institution code
                 sequences[i].institutionCode = gbifRecord.institutionCode
                 //identifiedBy
-                sequences[i].identifiedBy = gbifRecord.identifiedBy
-
-                
+                sequences[i].identifiedBy = gbifRecord.identifiedBy                
             }).done(function() {
                 updateRecords()
                 if (showAlert==true) {

@@ -110,78 +110,108 @@ const upload = async (req, res) => {
       });
   };
 
-  //function that writes data to a FASTA file
-  function writeFASTA(fileName, data) {
-      fs.appendFile(`./resources/static/assets/downloads/${fileName}`, `${generateFASTA(data)}`+`\n`, function(err) {
-          if (err) {
-              return console.log(err);
-          }
-
-          console.log("Success!")
-      })
-  }
-
-  //function that creates the source modifier file
-  function createSourceMod(){
-    const smHeaders = 'Sequence_ID\tCollected_by\tCollection_date\tCountry\tIdentified_by\tLat_Lon\tSpecimen_voucher\n'
-    fs.writeFile(`./resources/static/assets/downloads/${date.yyyymmdd()}_FASTA-GEN_mods.txt`, smHeaders, function(err) {
-      if (err) {
-        return console.log(err);
-      }
-      console.log("Success!")
-    })
-  }
-
-
-  //function that writes data to a source modifier file
-  function writeSourceMod(fileName, data) {
-      fs.appendFile(`./resources/static/assets/downloads/${fileName}`, `${generateSourceModData(data)}`+`\n`, function(err) {
+//function that writes data to a FASTA file
+function writeFASTA(fileName, data) {
+    fs.appendFile(`./resources/static/assets/downloads/${fileName}`, `${generateFASTA(data)}`+`\n`, function(err) {
         if (err) {
             return console.log(err);
         }
 
         console.log("Success!")
-      })
-  }
-
-  //function that defines how to write the fasta file
-  function generateFASTA(data) {
-      return `> ${data.catalogNumber} ${data.description}\n${data.sequence}`;
-  }
-
-  //function that defines how to write data the source modifier file
-  function generateSourceModData(data) {
-    // format the date
-    const monthNames = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-    let eventDate = new Date(data.eventDate)
-    let month = (monthNames[eventDate.getMonth()])
-    let day = eventDate.getDate()
-    let year = eventDate.getFullYear()
-    let formattedDate = `${day}-${month}-${year}`
-    
-    return `${data.catalogNumber}\t${data.recordedBy}\t${formattedDate}\t${data.country}\t${data.identifiedBy}\t${data.decimalLatitude} ${data.decimalLongitude}\t${data.institutionCode}:${data.collectionCode}:${data.catalogNumber}`;
-  }
+    })
+}
 
 
+//function that writes data to a source modifier file
+function writeSourceMod(fileName, data) {
+    fs.appendFile(`./resources/static/assets/downloads/${fileName}`, `${generateSourceModData(data)}`+`\n`, function(err) {
+      if (err) {
+          return console.log(err);
+      }
 
+      console.log("Success!")
+    })
+}
 
-  //create the date object for the download file name
-  Date.prototype.yyyymmdd = function() {
-    var mm = this.getMonth() + 1; // getMonth() is zero-based
-    var dd = this.getDate();
+//function that defines how to write the fasta file
+function generateFASTA(data) {
+    return `> ${data.catalogNumber} ${data.description}\n${data.sequence}`;
+}
+
+//function that defines how to write data the source modifier file
+function generateSourceModData(data) {
+  // format the date
+  const monthNames = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  let eventDate = new Date(data.eventDate)
+  let month = (monthNames[eventDate.getMonth()])
+  let day = eventDate.getDate()
+  let year = eventDate.getFullYear()
+  let formattedDate = `${day}-${month}-${year}`
   
-    return [this.getFullYear(),
-            (mm>9 ? '' : '0') + mm,
-            (dd>9 ? '' : '0') + dd
-           ].join('');
-  };
-  
-  var date = new Date();
-  console.log(date)
+  return `${data.catalogNumber}\t${data.recordedBy}\t${formattedDate}\t${data.country}\t${data.identifiedBy}\t${data.decimalLatitude} ${data.decimalLongitude}\t${data.institutionCode}:${data.collectionCode}:${data.catalogNumber}`;
+}
+
+
+//create the date object for the download file name
+Date.prototype.yyyymmdd = function() {
+  var mm = this.getMonth() + 1; // getMonth() is zero-based
+  var dd = this.getDate();
+
+  return [this.getFullYear(),
+          (mm>9 ? '' : '0') + mm,
+          (dd>9 ? '' : '0') + dd
+          ].join('');
+};
+
+var date = new Date();
+console.log(date)
+
+//function that creates the source modifier file
+function createSourceMod(){
+  const smHeaders = 'Sequence_ID\tCollected_by\tCollection_date\tCountry\tIdentified_by\tLat_Lon\tSpecimen_voucher\n'
+  fs.writeFile(`./resources/static/assets/downloads/${date.yyyymmdd()}_FASTA-GEN_mods.txt`, smHeaders, function(err) {
+    if (err) {
+      return console.log(err);
+    }
+  })
+}
+
+//function that overwrites an existing FASTA file with a blank one.
+function clearFasta(){
+  const blank = ''
+  fs.writeFile(`./resources/static/assets/downloads/${date.yyyymmdd()}_FASTA-GEN.fasta`, blank, function(err) {
+    if (err) {
+      return console.log(err);
+    }
+  })
+}
+
+//delete all existing files in downloads dir, and then create stub file for source mod, when page is loaded
+const resetFiles = () => {
+console.log("FILES RESET")
+  //if the source mods file does not exist, run function to create it
+  fs.access(`./resources/static/assets/downloads/${date.yyyymmdd()}_FASTA-GEN_mods.txt`, (err) => {
+    if (err) {
+      createSourceMod()
+  // if it does exist, write over it
+    } else {
+      createSourceMod()
+    }
+  })
+  //if the fasta file does not exist, do nothing
+  fs.access(`./resources/static/assets/downloads/${date.yyyymmdd()}_FASTA-GEN_mods.txt`, (err) => {
+    if (err) {
+      console.log("all good")
+  // if it does exist, write over it
+    } else {
+      clearFasta()
+    }
+  })
+}
+
 
 
 //create the source modifier file template
-createSourceMod()
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //download the specified file
@@ -202,5 +232,6 @@ const downloadFile = (req, res) => {
     getSequences,
     updateSequences,
     getSequencesForDownload,
-    downloadFile
+    downloadFile,
+    resetFiles
   };

@@ -1,1 +1,2 @@
 Sequence_ID	Collected_by	Collection_date	Country	Identified_by	Lat_Lon	Specimen_voucher
+DBG-F-030216	Justin Loucks; Lux Sterling	28-Jul-2019	United States of America	Justin Loucks	39.2469 -105.3583	DBG:DBG:DBG-F-030216

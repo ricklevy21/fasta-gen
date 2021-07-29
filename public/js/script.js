@@ -23,6 +23,13 @@ let downloadFileName
     $('#downloadSourceMod').hide()
 
 
+    // //event listener to erase all files in resources\static\assets\downloads + uploads and create stub source mod file
+    // $(window).on("load",function(){
+    //     //call api to run function on backend
+    //     console.log('file erased')
+    // })
+
+
     //event listener to send csv to server and upload to database
     $('#uploadCSV').submit(function(e) {
         $.ajax({
@@ -30,7 +37,10 @@ let downloadFileName
         type: "POST",
         data: new FormData(this),
         processData: false,
-        contentType: false
+        contentType: false,
+        success: function(){
+            alert("Data successfully uploaded")
+        }
         });
     
         return false;
@@ -107,7 +117,7 @@ let downloadFileName
             }).done(function() {
                 updateRecords()
                 if (showAlert==true) {
-                    alert ("GBIF data successfully synced.");
+                    alert ("GBIF data syncing, this may take a few minutes.");
                     showAlert = false;
                 }
             }).catch((error) => {
@@ -206,7 +216,6 @@ let downloadFileName
 
     //download the fasta file to the client
     function requestFileForDownload(){
-        console.log(downloadFileName)
         $.ajax({
             url: "/api/csv/files/"+downloadFileName,
             method: "GET"
@@ -221,7 +230,6 @@ let downloadFileName
 
     //download the source mod file to the client
     function requestModsFileForDownload(){
-        console.log(sourceModFileName)
         $.ajax({
             url: "/api/csv/files/"+sourceModFileName,
             method: "GET"

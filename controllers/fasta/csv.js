@@ -120,14 +120,27 @@ const upload = async (req, res) => {
           console.log("Success!")
       })
   }
-    //function that writes data to a source modifier file
-    function writeSourceMod(fileName, data) {
-      fs.appendFile(`./resources/static/assets/downloads/${fileName}`, `${generateSourceMod(data)}`+`\n`, function(err) {
-          if (err) {
-              return console.log(err);
-          }
 
-          console.log("Success!")
+  //function that creates the source modifier file
+  function createSourceMod(){
+    const smHeaders = 'Sequence_ID\tCollected_by\tCollection_date\tCountry\tIdentified_by\tLat_Lon\tSpecimen_voucher\n'
+    fs.writeFile(`./resources/static/assets/downloads/${date.yyyymmdd()}_FASTA-GEN_mods.txt`, smHeaders, function(err) {
+      if (err) {
+        return console.log(err);
+      }
+      console.log("Success!")
+    })
+  }
+
+
+  //function that writes data to a source modifier file
+  function writeSourceMod(fileName, data) {
+      fs.appendFile(`./resources/static/assets/downloads/${fileName}`, `${generateSourceModData(data)}`+`\n`, function(err) {
+        if (err) {
+            return console.log(err);
+        }
+
+        console.log("Success!")
       })
   }
 
@@ -136,8 +149,8 @@ const upload = async (req, res) => {
       return `> ${data.catalogNumber} ${data.description}\n${data.sequence}`;
   }
 
-  //function that defines how to write the source modifier file
-  function generateSourceMod(data) {
+  //function that defines how to write data the source modifier file
+  function generateSourceModData(data) {
     // format the date
     const monthNames = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
     let eventDate = new Date(data.eventDate)
@@ -146,10 +159,13 @@ const upload = async (req, res) => {
     let year = eventDate.getFullYear()
     let formattedDate = `${day}-${month}-${year}`
     
-    return `Sequence_ID\tCollected_by\tCollection_date\tCountry\tIdentified_by\tLat_Lon\tSpecimen_voucher\n${data.catalogNumber}\t${data.recordedBy}\t${formattedDate}\t${data.country}\t${data.identifiedBy}\t${data.decimalLatitude} ${data.decimalLongitude}\t${data.institutionCode}:${data.collectionCode}:${data.catalogNumber}`;
+    return `${data.catalogNumber}\t${data.recordedBy}\t${formattedDate}\t${data.country}\t${data.identifiedBy}\t${data.decimalLatitude} ${data.decimalLongitude}\t${data.institutionCode}:${data.collectionCode}:${data.catalogNumber}`;
   }
 
-  //create the data object for the download file name
+
+
+
+  //create the date object for the download file name
   Date.prototype.yyyymmdd = function() {
     var mm = this.getMonth() + 1; // getMonth() is zero-based
     var dd = this.getDate();
@@ -161,13 +177,17 @@ const upload = async (req, res) => {
   };
   
   var date = new Date();
+  console.log(date)
+
+
+//create the source modifier file template
+createSourceMod()
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //download the specified file
 const downloadFile = (req, res) => {
   const fileName = req.params.name;
   const directoryPath = __basedir + "/resources/static/assets/downloads/";
-
   res.download(directoryPath + fileName, fileName, (err) => {
     if (err) {
       res.status(500).send({
@@ -175,7 +195,6 @@ const downloadFile = (req, res) => {
       })
     }
   })
-
 }
   
   module.exports = {

@@ -1,5 +1,7 @@
 //VIEW ROUTES FOR SERVING UP PAGE TEMPLATES
 const { auth, requiresAuth } = require('express-openid-connect');
+require('dotenv').config()
+
 
 module.exports = function (app) {
     
@@ -7,9 +9,9 @@ module.exports = function (app) {
     const config = {
         authRequired: false,
         auth0Logout: true,
-        secret: '886a6498ec7c61b35588735ce6df51d698578dee0d27a531aa56997ceec48059',
+        secret: process.env.AUTH0_SECRET,
         baseURL: 'http://localhost:8080',
-        clientID: 'i4WoV5MLZw1KreLv6fQAosz5tO3X4WZN',
+        clientID: process.env.AUTH0_ClientID,
         issuerBaseURL: 'https://dev-bh957c52.us.auth0.com'
     };
     

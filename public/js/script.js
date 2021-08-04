@@ -116,7 +116,7 @@ let downloadFileName
                 //identifiedBy
                 sequences[i].identifiedBy = gbifRecord.identifiedBy                
             }).done(function() {
-                updateRecords()
+                    updateRecords()
                 if (showAlert==true) {
                     alert ("GBIF data syncing, this may take a few minutes.");
                     showAlert = false;
@@ -242,8 +242,5 @@ let downloadFileName
             
         })
     }
-
-
-
 
 });

@@ -8,7 +8,6 @@ const baseUrl = "http://localhost:8080/files/";
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //upload csv into db
 const upload = async (req, res) => {
-  console.log(req.body.username)
     try {
       if (req.file == undefined) {
         return res.status(400).send("Please upload a CSV file!");
@@ -24,7 +23,6 @@ const upload = async (req, res) => {
         })
         .on("data", (row) => {
           row.user = req.body.username
-          console.log(row)
           sequences.push(row);
         })
         .on("end", () => {
@@ -53,7 +51,14 @@ const upload = async (req, res) => {
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   //get all records from db
   const getSequences = (req, res) => {
-    Fasta.findAll()
+    console.log(req.params)
+    Fasta.findAll(
+      {
+      where: {
+        user: req.params.nickname
+      }
+    }
+    )
       .then((data) => {
         res.send(data);
       })

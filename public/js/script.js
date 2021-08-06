@@ -80,7 +80,7 @@ let userInfo = {}
     //function to query every record in the database and then prefrom API call to GBIF with data returned
     function getAllSequences() {
         $.ajax({
-            url: "/api/csv/sequences",
+            url: "/api/csv/sequences/"+userInfo.nickname,
             type: "GET"
         })
         .then((data) => {
@@ -155,7 +155,7 @@ let userInfo = {}
     //Show all sequences in select list
     function listSequences() {
         $.ajax({
-            url: "/api/csv/sequences",
+            url: "/api/csv/sequences/"+userInfo.nickname,
             type: "GET"
         })
         .then((sequenceList) => {

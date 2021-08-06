@@ -51,7 +51,6 @@ const upload = async (req, res) => {
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   //get all records from db
   const getSequences = (req, res) => {
-    console.log(req.params)
     Fasta.findAll(
       {
       where: {

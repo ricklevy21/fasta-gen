@@ -14,6 +14,8 @@ let showAlert = true
 
 let downloadFileName
 
+let userInfo = {}
+
 //EVENT LISTENERS
 //---------------------------------------------------------------------------------------------------------------
     //hide elements
@@ -243,12 +245,14 @@ let downloadFileName
         })
     }
 
+    //get user info (if not logged in, then nothing really happens)
     function getUserInfo() {
         $.ajax({
             url: "/api/csv/user",
             method: "GET"
         })
         .then((res) => {
+            userInfo = res
             $("#userName").append(res.nickname)
         })
     }

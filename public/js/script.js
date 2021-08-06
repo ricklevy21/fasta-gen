@@ -37,10 +37,14 @@ let userInfo = {}
 
     //event listener to send csv to server and upload to database
     $('#uploadCSV').submit(function(e) {
+        var formdata = new FormData(this);
+        //add username
+        formdata.append("username", userInfo.nickname);
+
         $.ajax({
         url: "/api/csv/upload",
         type: "POST",
-        data: new FormData(this),
+        data: formdata,
         processData: false,
         contentType: false,
         success: function(){

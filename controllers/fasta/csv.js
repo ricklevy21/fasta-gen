@@ -8,7 +8,7 @@ const baseUrl = "http://localhost:8080/files/";
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //upload csv into db
 const upload = async (req, res) => {
-  console.log(req)
+  console.log(req.body.username)
     try {
       if (req.file == undefined) {
         return res.status(400).send("Please upload a CSV file!");
@@ -23,6 +23,7 @@ const upload = async (req, res) => {
           throw error.message;
         })
         .on("data", (row) => {
+          row.user = req.body.username
           console.log(row)
           sequences.push(row);
         })

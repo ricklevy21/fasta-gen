@@ -1,0 +1,32 @@
+{{!-- TEMPLATE FOR HOME PAGE --}}
+<h2>Upload New Sequences</h2>
+
+<form id="uploadCSV">
+  <input type="file" name="file">
+  <button type="submit">Upload CSV File</button>
+</form>
+<br>
+<h2>Sync GBIF Data</h2>
+<form id="syncGBIF">
+  <button type="submit">Sync</button>
+</form>
+<br>
+<h2>Download FASTA & Source Modifier Files</h2>
+<form id="selectSequences">
+  <button type="submit">View Sequences</button>
+</form>
+<br>
+
+<form id="sequenceListForm">
+  <label>Hold down the Ctrl (Windows) or Command (Mac) button to select/deselect multiple options.</label>
+  <br>
+  <button id="downloadFiles" type="submit">Generate Files for Selected Sequences</button>
+  <a id="downloadFasta">Download FASTA file</a>
+  <a id="downloadSourceMod">Download Source Modifier file</a>
+  <br>
+  <br>
+  <select id="sequenceList" multiple size="20" style="width: 75%;"></select>
+
+</form>
+
+

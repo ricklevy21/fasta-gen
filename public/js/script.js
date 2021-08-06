@@ -243,4 +243,16 @@ let downloadFileName
         })
     }
 
+    function getUserInfo() {
+        $.ajax({
+            url: "/api/csv/user",
+            method: "GET"
+        })
+        .then((res) => {
+            $("#userName").append(res.nickname)
+        })
+    }
+
+    getUserInfo()
+
 });

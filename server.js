@@ -33,7 +33,7 @@ app.set("view engine", "handlebars");
 const initRoutes = require("./routes/api-routes");
 //api routes for handling data exchanges
 initRoutes(app);
-require("./routes/view-routes.js")(app);
+require("./routes/api-routes.js")(app);
 
 // start the server. {force:true} drops the tables from exisiting db. {force:false} keeps the existing db and tables and data in place
 db.sequelize.sync({

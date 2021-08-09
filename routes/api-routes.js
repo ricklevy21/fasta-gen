@@ -57,6 +57,11 @@ let routes = (app) => {
       res.render("user");
     });
 
+    //template
+    app.get('/template', (req, res) => {
+      res.render("template")
+    })
+
 
   app.use("/api/csv", router);
 };

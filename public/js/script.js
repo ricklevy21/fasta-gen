@@ -162,7 +162,7 @@ let userInfo = {}
             listOfSequences = []
             $.each(sequenceList, function(i, sequenceListItem) {
                 listOfSequences.push('<option value='+sequenceListItem.id+'>'
-                +sequenceListItem.sequenceID+'  |  '
+                +sequenceListItem.SeqID+'  |  '
                 +sequenceListItem.scientificName+
                 '</option>')
             })
@@ -249,6 +249,17 @@ let userInfo = {}
         })
     }
 
+    //download the template file to the client
+    function requestTemplateForDownload(){
+        $.ajax({
+            url: "/api/csv/files/"+sourceModFileName,
+            method: "GET"
+        })
+        .then(function() {
+            var url = 'http://localhost:8080/api/csv/files/fasta-gen_TEMPLATE.csv';          
+        })
+    }
+
     //get user info (if not logged in, then nothing really happens)
     function getUserInfo() {
         $.ajax({
@@ -262,5 +273,6 @@ let userInfo = {}
     }
 
     getUserInfo()
+    requestTemplateForDownload()
 
 });

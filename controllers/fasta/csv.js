@@ -142,7 +142,7 @@ function writeSourceMod(fileName, data) {
 
 //function that defines how to write the fasta file
 function generateFASTA(data) {
-    return `> ${data.catalogNumber} ${data.description}\n${data.sequence}`;
+    return `> ${data.sequenceID} ${data.description}\n${data.sequence}`;
 }
 
 //function that defines how to write data the source modifier file
@@ -155,7 +155,7 @@ function generateSourceModData(data) {
   let year = eventDate.getFullYear()
   let formattedDate = `${day}-${month}-${year}`
   
-  return `${data.catalogNumber}\t${data.recordedBy}\t${formattedDate}\t${data.country}\t${data.identifiedBy}\t${data.decimalLatitude} ${data.decimalLongitude}\t${data.institutionCode}:${data.collectionCode}:${data.catalogNumber}`;
+  return `${data.sequenceID}\t${data.recordedBy}\t${formattedDate}\t${data.country}\t${data.identifiedBy}\t${data.decimalLatitude} ${data.decimalLongitude}\t${data.institutionCode}:${data.collectionCode}:${data.catalogNumber}`;
 }
 
 

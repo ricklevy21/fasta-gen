@@ -162,7 +162,7 @@ let userInfo = {}
             listOfSequences = []
             $.each(sequenceList, function(i, sequenceListItem) {
                 listOfSequences.push('<option value='+sequenceListItem.id+'>'
-                +sequenceListItem.catalogNumber+'  |  '
+                +sequenceListItem.sequenceID+'  |  '
                 +sequenceListItem.scientificName+
                 '</option>')
             })

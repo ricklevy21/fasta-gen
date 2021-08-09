@@ -1,5 +1,6 @@
 module.exports = (sequelize, Sequelize) => {
     const Fasta = sequelize.define("Fasta", {
+        sequenceID : Sequelize.STRING,
         catalogNumber : Sequelize.STRING,
         description: Sequelize.STRING,
         sequence: Sequelize.TEXT,
@@ -12,7 +13,8 @@ module.exports = (sequelize, Sequelize) => {
         decimalLatitude : Sequelize.STRING,
         decimalLongitude : Sequelize.STRING,
         institutionCode : Sequelize.STRING,
-        identifiedBy: Sequelize.STRING
+        identifiedBy: Sequelize.STRING,
+        user: Sequelize.STRING
     });
 
     return Fasta;

@@ -37,10 +37,14 @@ let userInfo = {}
 
     //event listener to send csv to server and upload to database
     $('#uploadCSV').submit(function(e) {
+        var formdata = new FormData(this);
+        //add username
+        formdata.append("username", userInfo.nickname);
+
         $.ajax({
         url: "/api/csv/upload",
         type: "POST",
-        data: new FormData(this),
+        data: formdata,
         processData: false,
         contentType: false,
         success: function(){
@@ -76,7 +80,7 @@ let userInfo = {}
     //function to query every record in the database and then prefrom API call to GBIF with data returned
     function getAllSequences() {
         $.ajax({
-            url: "/api/csv/sequences",
+            url: "/api/csv/sequences/"+userInfo.nickname,
             type: "GET"
         })
         .then((data) => {
@@ -151,14 +155,14 @@ let userInfo = {}
     //Show all sequences in select list
     function listSequences() {
         $.ajax({
-            url: "/api/csv/sequences",
+            url: "/api/csv/sequences/"+userInfo.nickname,
             type: "GET"
         })
         .then((sequenceList) => {
             listOfSequences = []
             $.each(sequenceList, function(i, sequenceListItem) {
                 listOfSequences.push('<option value='+sequenceListItem.id+'>'
-                +sequenceListItem.catalogNumber+'  |  '
+                +sequenceListItem.sequenceID+'  |  '
                 +sequenceListItem.scientificName+
                 '</option>')
             })

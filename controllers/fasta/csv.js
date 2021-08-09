@@ -8,7 +8,6 @@ const baseUrl = "http://localhost:8080/files/";
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //upload csv into db
 const upload = async (req, res) => {
-  console.log(req)
     try {
       if (req.file == undefined) {
         return res.status(400).send("Please upload a CSV file!");
@@ -23,7 +22,7 @@ const upload = async (req, res) => {
           throw error.message;
         })
         .on("data", (row) => {
-          console.log(row)
+          row.user = req.body.username
           sequences.push(row);
         })
         .on("end", () => {
@@ -52,7 +51,13 @@ const upload = async (req, res) => {
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   //get all records from db
   const getSequences = (req, res) => {
-    Fasta.findAll()
+    Fasta.findAll(
+      {
+      where: {
+        user: req.params.nickname
+      }
+    }
+    )
       .then((data) => {
         res.send(data);
       })
@@ -137,7 +142,7 @@ function writeSourceMod(fileName, data) {
 
 //function that defines how to write the fasta file
 function generateFASTA(data) {
-    return `> ${data.catalogNumber} ${data.description}\n${data.sequence}`;
+    return `> ${data.sequenceID} ${data.description}\n${data.sequence}`;
 }
 
 //function that defines how to write data the source modifier file
@@ -150,7 +155,7 @@ function generateSourceModData(data) {
   let year = eventDate.getFullYear()
   let formattedDate = `${day}-${month}-${year}`
   
-  return `${data.catalogNumber}\t${data.recordedBy}\t${formattedDate}\t${data.country}\t${data.identifiedBy}\t${data.decimalLatitude} ${data.decimalLongitude}\t${data.institutionCode}:${data.collectionCode}:${data.catalogNumber}`;
+  return `${data.sequenceID}\t${data.recordedBy}\t${formattedDate}\t${data.country}\t${data.identifiedBy}\t${data.decimalLatitude} ${data.decimalLongitude}\t${data.institutionCode}:${data.collectionCode}:${data.catalogNumber}`;
 }
 
 

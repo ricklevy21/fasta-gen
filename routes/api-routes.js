@@ -12,7 +12,7 @@ let routes = (app) => {
   router.post("/upload", upload.single("file"), csvController.upload);
     
   //GET /api/csv/sequences
-  router.get("/sequences", csvController.getSequences);
+  router.get("/sequences/:nickname", csvController.getSequences);
   
   //PUT /api/csv/update
   router.put("/update", csvController.updateSequences);
@@ -44,7 +44,6 @@ let routes = (app) => {
   //protected route
   router.get('/user', requiresAuth(), (req, res) => {
       res.send(req.oidc.user);
-      console.log(req.oidc.user)
     });
 
   //views

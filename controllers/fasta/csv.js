@@ -4,6 +4,8 @@ const Fasta = db.fasta;
 const fs = require("fs");
 const csv = require("fast-csv");
 const baseUrl = "http://localhost:8080/files/";
+const { Op } = require("sequelize");
+
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //upload csv into db
@@ -64,11 +66,141 @@ const upload = async (req, res) => {
       .catch((err) => {
         res.status(500).send({
           message:
-            err.message || "Some error occurred while retrieving sequences.",
+            err.message || "Some error occurred while retrieving sequences." 
         });
       });
   };
 
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//get all ITS records from db
+const getITSSequences = (req, res) => {
+  Fasta.findAll(
+    {
+    where: {
+      user: req.params.nickname,
+      ITS: {
+        [Op.or]: {
+          [Op.not]: null,
+          [Op.not]: ""
+        }
+      }
+    }
+  }
+  )
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving sequences." 
+      });
+    });
+};
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//get all ITS1 records from db
+const getITS1Sequences = (req, res) => {
+  Fasta.findAll(
+    {
+    where: {
+      user: req.params.nickname,
+      ITS1: {
+        [Op.or]: {
+          [Op.not]: null,
+          [Op.not]: ""
+        }
+      }
+    }
+  }
+  )
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving sequences." 
+      });
+    });
+};
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//get all ITS2 records from db
+const getITS2Sequences = (req, res) => {
+  Fasta.findAll(
+    {
+    where: {
+      user: req.params.nickname,
+      ITS2: {
+        [Op.or]: {
+          [Op.not]: null,
+          [Op.not]: ""
+        }
+      }
+    }
+  }
+  )
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving sequences." 
+      });
+    });
+};
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//get all SSUrRNA_18s records from db
+const getSSUSequences = (req, res) => {
+  Fasta.findAll(
+    {
+    where: {
+      user: req.params.nickname,
+      SSUrRNA_18s: {
+        [Op.or]: {
+          [Op.not]: null,
+          [Op.not]: ""
+        }
+      }
+    }
+  }
+  )
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving sequences." 
+      });
+    });
+};
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//get all LSUrRNA_28s records from db
+const getLSUSequences = (req, res) => {
+  Fasta.findAll(
+    {
+    where: {
+      user: req.params.nickname,
+      LSUrRNA_28s: {
+        [Op.or]: {
+          [Op.not]: null,
+          [Op.not]: ""
+        }
+      }
+    }
+  }
+  )
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving sequences." 
+      });
+    });
+};
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   //update db records with data from gbif
   const updateSequences = (req, res) => {
@@ -237,6 +369,11 @@ const downloadFile = (req, res) => {
   module.exports = {
     upload,
     getSequences,
+    getITSSequences,
+    getITS1Sequences,
+    getITS2Sequences,
+    getSSUSequences,
+    getLSUSequences,
     updateSequences,
     getSequencesForDownload,
     downloadFile,

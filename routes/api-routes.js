@@ -13,6 +13,21 @@ let routes = (app) => {
     
   //GET /api/csv/sequences
   router.get("/sequences/:nickname", csvController.getSequences);
+
+  //GET /api/csv/ITS
+  router.get("/ITS/:nickname", csvController.getITSSequences);
+ 
+  //GET /api/csv/ITS1
+  router.get("/ITS1/:nickname", csvController.getITS1Sequences);
+ 
+  //GET /api/csv/ITS2
+  router.get("/ITS2/:nickname", csvController.getITS2Sequences);
+ 
+  //GET /api/csv/SSU
+  router.get("/SSU/:nickname", csvController.getSSUSequences);
+ 
+  //GET /api/csv/LSU
+  router.get("/LSU/:nickname", csvController.getLSUSequences);  
   
   //PUT /api/csv/update
   router.put("/update", csvController.updateSequences);

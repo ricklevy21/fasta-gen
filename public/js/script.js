@@ -64,9 +64,39 @@ let userInfo = {}
 
 
     //event listener to display all sequences in database to page
-    $('#selectSequences').submit(function(e) {
+    $('#selectSequences').click(function(e) {
         e.preventDefault()
         listSequences()
+    })
+    
+    //event listener to display ITS sequences in database to page
+    $('#selectITS').click(function(e) {
+        e.preventDefault()
+        listITS()
+    })
+   
+    //event listener to display ITS1 sequences in database to page
+    $('#selectITS1').click(function(e) {
+        e.preventDefault()
+        listITS1()
+    })
+  
+    //event listener to display ITS2 sequences in database to page
+    $('#selectITS2').click(function(e) {
+        e.preventDefault()
+        listITS2()
+    })
+   
+    //event listener to display SSU sequences in database to page
+    $('#selectSSU').click(function(e) {
+        e.preventDefault()
+        listSSU()
+    })
+    
+    //event listener to display LSU sequences in database to page
+    $('#selectLSU').click(function(e) {
+        e.preventDefault()
+        listLSU()
     })
 
     //event listener for the download files button
@@ -174,6 +204,116 @@ let userInfo = {}
 
         })
     }
+    //Show ITS sequences in select list
+    function listITS() {
+        $.ajax({
+            url: "/api/csv/ITS/"+userInfo.nickname,
+            type: "GET"
+        })
+        .then((sequenceList) => {
+            listOfSequences = []
+            $.each(sequenceList, function(i, sequenceListItem) {
+                listOfSequences.push('<option value='+sequenceListItem.id+'>'
+                +sequenceListItem.SeqID+'  |  '
+                +sequenceListItem.scientificName+
+                '</option>')
+            })
+        }).then(function(){
+            $('#sequenceList').empty();
+            $('#sequenceList').append(listOfSequences.join(''));
+            $('#sequenceListForm').show();
+            $('#downloadFiles').show();
+
+        })
+    }
+    //Show ITS1 sequences in select list
+    function listITS1() {
+        $.ajax({
+            url: "/api/csv/ITS1/"+userInfo.nickname,
+            type: "GET"
+        })
+        .then((sequenceList) => {
+            listOfSequences = []
+            $.each(sequenceList, function(i, sequenceListItem) {
+                listOfSequences.push('<option value='+sequenceListItem.id+'>'
+                +sequenceListItem.SeqID+'  |  '
+                +sequenceListItem.scientificName+
+                '</option>')
+            })
+        }).then(function(){
+            $('#sequenceList').empty();
+            $('#sequenceList').append(listOfSequences.join(''));
+            $('#sequenceListForm').show();
+            $('#downloadFiles').show();
+
+        })
+    }
+    //Show ITS sequences in select list
+    function listITS2() {
+        $.ajax({
+            url: "/api/csv/ITS2/"+userInfo.nickname,
+            type: "GET"
+        })
+        .then((sequenceList) => {
+            listOfSequences = []
+            $.each(sequenceList, function(i, sequenceListItem) {
+                listOfSequences.push('<option value='+sequenceListItem.id+'>'
+                +sequenceListItem.SeqID+'  |  '
+                +sequenceListItem.scientificName+
+                '</option>')
+            })
+        }).then(function(){
+            $('#sequenceList').empty();
+            $('#sequenceList').append(listOfSequences.join(''));
+            $('#sequenceListForm').show();
+            $('#downloadFiles').show();
+
+        })
+    }
+    //Show ITS sequences in select list
+    function listSSU() {
+        $.ajax({
+            url: "/api/csv/SSU/"+userInfo.nickname,
+            type: "GET"
+        })
+        .then((sequenceList) => {
+            listOfSequences = []
+            $.each(sequenceList, function(i, sequenceListItem) {
+                listOfSequences.push('<option value='+sequenceListItem.id+'>'
+                +sequenceListItem.SeqID+'  |  '
+                +sequenceListItem.scientificName+
+                '</option>')
+            })
+        }).then(function(){
+            $('#sequenceList').empty();
+            $('#sequenceList').append(listOfSequences.join(''));
+            $('#sequenceListForm').show();
+            $('#downloadFiles').show();
+
+        })
+    }
+    //Show ITS sequences in select list
+    function listLSU() {
+        $.ajax({
+            url: "/api/csv/LSU/"+userInfo.nickname,
+            type: "GET"
+        })
+        .then((sequenceList) => {
+            listOfSequences = []
+            $.each(sequenceList, function(i, sequenceListItem) {
+                listOfSequences.push('<option value='+sequenceListItem.id+'>'
+                +sequenceListItem.SeqID+'  |  '
+                +sequenceListItem.scientificName+
+                '</option>')
+            })
+        }).then(function(){
+            $('#sequenceList').empty();
+            $('#sequenceList').append(listOfSequences.join(''));
+            $('#sequenceListForm').show();
+            $('#downloadFiles').show();
+
+        })
+    }
 
     //submit selected sequences for file download
     function buildQueryList() {
@@ -252,7 +392,7 @@ let userInfo = {}
     //download the template file to the client
     function requestTemplateForDownload(){
         $.ajax({
-            url: "/api/csv/files/"+sourceModFileName,
+            url: "/api/csv/files/fasta-gen_TEMPLATE.csv",
             method: "GET"
         })
         .then(function() {

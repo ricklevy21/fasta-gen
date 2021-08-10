@@ -3,25 +3,40 @@
 <div class="container-fluid">
     <p class="lead">Import Sequence Data from CSV Spreadhseet</p>
     <p>Use this <a href='http://localhost:8080/api/csv/files/fasta-gen_TEMPLATE.csv'>template</a> or modify your own spreadsheet to include these headers.</p>
-    <br>
     <div class="container">
         <div class="row">
-            <div class="col-md">
-                <a href="https://www.ncbi.nlm.nih.gov/genbank/fastaformat/" target="_blank">SeqID</a>
+            <div class="col-md"align="center">
+                <a href="https://www.ncbi.nlm.nih.gov/genbank/fastaformat/" data-toggle="tooltip" data-placement="top" title="A unique identifier for the sequence" target="_blank">SeqID</a>
             </div>
-            <div class="col-md">
-                <a href="https://dwc.tdwg.org/terms/#dwc:catalogNumber" target="_blank">catalogNumber</a>
+            <div class="col-md"align="center">
+                <a href="https://www.ncbi.nlm.nih.gov/genbank/fastaformat/" data-toggle="tooltip" data-placement="top" title="A brief description of the sequence" target="_blank">sequenceTitle</a> 
             </div>
-            <div class="col-md">
-                <a href="https://dwc.tdwg.org/terms/#dwc:collectionCode" target="_blank">collectionCode</a>   
+            <div class="col-md"align="center">
+                <a href="https://dwc.tdwg.org/terms/#dwc:catalogNumber" data-toggle="tooltip" data-placement="top" title="An identifier for the specimen within the data set or collection. Required for GBIF data sync." target="_blank">catalogNumber</a>
             </div>
-            <div class="col-md">
-                <a href="https://www.ncbi.nlm.nih.gov/genbank/fastaformat/" target="_blank">description</a> 
+            <div class="col-md"align="center">
+                <a href="https://dwc.tdwg.org/terms/#dwc:collectionCode" data-toggle="tooltip" data-placement="top" title="The name, acronym, code, or initialism identifying the collection or data set from which the record was derived. Recommended for GBIF data sync." target="_blank">collectionCode</a>   
             </div>
-            <div class="col-md">
-                <a href="https://www.ncbi.nlm.nih.gov/genbank/fastaformat/" target="_blank">sequence</a>
-        </div>        
+            <div class="col-md"align="center">
+                <a href="#" data-toggle="tooltip" data-placement="top" title="Place your ITS sequences below this header">ITS</a>
+            </div>
+            <div class="col-md"align="center">
+                <a href="#" data-toggle="tooltip" data-placement="top" title="Place your ITS1 sequences below this header">ITS1</a>
+            </div>
+            <div class="col-md"align="center">
+                <a href="#" data-toggle="tooltip" data-placement="top" title="Place your ITS2 sequences below this header">ITS2</a>
+            </div>
+            <div class="col-md"align="center">
+                <a href="#" data-toggle="tooltip" data-placement="top" title="Place your SSUrRNA_18s sequences below this header">SSUrRNA_18s</a>
+            </div>  
+            <div class="col-md"align="center">
+                <a href="#" data-toggle="tooltip" data-placement="top" title="Place your LSUrRNA_28s sequences below this header">LSUrRNA_28s</a>
+            </div>  
     </div>    
 </div>
-
+<br>
+<div class="container-fluid">
+    <p>The SeqID must be unique for each nucleotide sequence and should not contain any spaces. Please limit the SeqID to 25 characters or less. The SeqID can only include letters, digits, hyphens (-), underscores (_), periods (.), colons (:), asterisks (*), and number signs (#). The sequence identifier will be replaced with an Accession number by the database staff when your submission is processed (NCBI).</p>
+    <p>The final optional component of the FASTA definition line is the sequence title, which will be used as the DEFINITION field in the flatfile. The title should contain a brief description of the sequence. There is a preferred format for nucleotide and protein titles. The provided title will be changed to the proper format by the database staff during processing (NCBI).</p>
+</div>
 

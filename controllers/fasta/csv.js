@@ -276,15 +276,15 @@ function writeSourceMod(fileName, data) {
 function generateFASTA(data) {
   console.log(data)
   if (data.ITS != ""){
-    return `> ${data.SeqID} ${data.description}\n${data.ITS}`;
+    return `> ${data.SeqID} [organism=${data.scientificName}] ${data.sequenceTitle}\n${data.ITS}`;
   } else if (data.ITS1 != ""){
-    return `> ${data.SeqID} ${data.description}\n${data.ITS1}`;
+    return `> ${data.SeqID} [organism=${data.scientificName}] ${data.sequenceTitle}\n${data.ITS1}`;
   }else if (data.ITS2 != ""){
-    return `> ${data.SeqID} ${data.description}\n${data.ITS2}`;
+    return `> ${data.SeqID} [organism=${data.scientificName}] ${data.sequenceTitle}\n${data.ITS2}`;
   }else if (data.SSUrRNA_18s != ""){
-    return `> ${data.SeqID} ${data.description}\n${data.SSUrRNA_18s}`;
+    return `> ${data.SeqID} [organism=${data.scientificName}] ${data.sequenceTitle}\n${data.SSUrRNA_18s}`;
   }else if (data.LSUrRNA_28s != ""){
-    return `> ${data.SeqID} ${data.description}\n${data.LSUrRNA_28s}`;
+    return `> ${data.SeqID} [organism=${data.scientificName}] ${data.sequenceTitle}\n${data.LSUrRNA_28s}`;
   }
 }
 

@@ -2,7 +2,7 @@ module.exports = (sequelize, Sequelize) => {
     const Fasta = sequelize.define("Fasta", {
         SeqID : Sequelize.STRING,
         catalogNumber : Sequelize.STRING,
-        description: Sequelize.STRING,
+        sequenceTitle: Sequelize.STRING,
         scientificName : Sequelize.STRING,
         collectionCode : Sequelize.STRING,
         family : Sequelize.STRING,

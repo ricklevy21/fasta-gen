@@ -3,7 +3,6 @@ module.exports = (sequelize, Sequelize) => {
         SeqID : Sequelize.STRING,
         catalogNumber : Sequelize.STRING,
         description: Sequelize.STRING,
-        sequence: Sequelize.TEXT,
         scientificName : Sequelize.STRING,
         collectionCode : Sequelize.STRING,
         family : Sequelize.STRING,
@@ -14,7 +13,12 @@ module.exports = (sequelize, Sequelize) => {
         decimalLongitude : Sequelize.STRING,
         institutionCode : Sequelize.STRING,
         identifiedBy: Sequelize.STRING,
-        user: Sequelize.STRING
+        user: Sequelize.STRING,
+        ITS : Sequelize.TEXT,
+        ITS1 : Sequelize.TEXT,
+        ITS2 : Sequelize.TEXT,
+        SSUrRNA_18s : Sequelize.TEXT,
+        LSUrRNA_28s : Sequelize.TEXT
     });
 
     return Fasta;

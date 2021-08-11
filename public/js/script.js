@@ -368,7 +368,7 @@ let userInfo = {}
             method: "GET"
         })
         .then(function() {
-            var url = 'http://localhost:8080/api/csv/files/'+downloadFileName;
+            var url = 'https://stormy-river-74459.herokuapp.com/api/csv/files/'+downloadFileName;
             $("#downloadFasta").attr("href", url)
             $("#downloadFasta").show()
             
@@ -382,7 +382,7 @@ let userInfo = {}
             method: "GET"
         })
         .then(function() {
-            var url = 'http://localhost:8080/api/csv/files/'+sourceModFileName;
+            var url = 'https://stormy-river-74459.herokuapp.com/api/csv/files/'+sourceModFileName;
             $("#downloadSourceMod").attr("href", url)
             $("#downloadSourceMod").show()
             
@@ -396,7 +396,7 @@ let userInfo = {}
             method: "GET"
         })
         .then(function() {
-            var url = 'http://localhost:8080/api/csv/files/fasta-gen_TEMPLATE.csv';          
+            var url = 'https://stormy-river-74459.herokuapp.com/api/csv/files/fasta-gen_TEMPLATE.csv';          
         })
     }
 

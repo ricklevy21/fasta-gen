@@ -276,7 +276,7 @@ function writeSourceMod(fileName, data) {
 function generateFASTA(data) {
   console.log(data)
   if (data.ITS != ""){
-    return `> ${data.SeqID} [organism=${data.scientificName}] ${data.sequenceTitle}\n${data.ITS}`;
+    return `> ${data.SeqID} [organism=${data.scientificName}] ${data.scientificName} Specimen Voucher ${data.catalogNumber} ${data.sequenceTitle}\n${data.ITS}`;
   } else if (data.ITS1 != ""){
     return `> ${data.SeqID} [organism=${data.scientificName}] ${data.sequenceTitle}\n${data.ITS1}`;
   }else if (data.ITS2 != ""){
@@ -343,8 +343,10 @@ console.log("FILES RESET")
   fs.access(`./resources/static/assets/downloads/${date.yyyymmdd()}_FASTA-GEN_mods.txt`, (err) => {
     if (err) {
       createSourceMod()
+      console.log("source mods file does not exist - creating one")
   // if it does exist, write over it
     } else {
+      console.log("writing over source mods file")
       createSourceMod()
     }
   })

@@ -1,0 +1,2 @@
+Sequence_ID	Collected_by	Collection_date	Country	Identified_by	Lat_Lon	Specimen_voucher
+DBG-F-030613-ITS	Andrew W. Wilson; Gary Olds	9-Mar-2021	United States of America	Andrew W. Wilson	39.732605 -104.960395	DBG:DBG:DBG-F-030613

@@ -100,24 +100,20 @@ let userInfo = {}
     })
 
     
-    // //event listener for the download files button
-    // $('#downloadFiles').click(function(e) {
-    //     e.preventDefault()
-    //     buildQueryList()
-    // })
-
-
     //event listener for the download files button
     $('#downloadFiles').click(function(e) {
         e.preventDefault()
-        // adding the file reset post here for test
+        //call api to run function on backend to reset files before every generation
         $.ajax({
             url: "/api/csv/reset",
-            type: "POST"
-        }).then(function(){
-            buildQueryList()
+            type: "POST",
+            success: buildQueryList()
         })
+
     })
+
+
+
 
 //FUNCTIONS
 //---------------------------------------------------------------------------------------------------------------

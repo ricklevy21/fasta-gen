@@ -99,10 +99,24 @@ let userInfo = {}
         listLSU()
     })
 
+    
+    // //event listener for the download files button
+    // $('#downloadFiles').click(function(e) {
+    //     e.preventDefault()
+    //     buildQueryList()
+    // })
+
+
     //event listener for the download files button
     $('#downloadFiles').click(function(e) {
         e.preventDefault()
-        buildQueryList()
+        // adding the file reset post here for test
+        $.ajax({
+            url: "/api/csv/reset",
+            type: "POST"
+        }).then(function(){
+            buildQueryList()
+        })
     })
 
 //FUNCTIONS
@@ -248,7 +262,7 @@ let userInfo = {}
 
         })
     }
-    //Show ITS sequences in select list
+    //Show ITS2 sequences in select list
     function listITS2() {
         $.ajax({
             url: "/api/csv/ITS2/"+userInfo.nickname,
@@ -270,7 +284,7 @@ let userInfo = {}
 
         })
     }
-    //Show ITS sequences in select list
+    //Show SSU sequences in select list
     function listSSU() {
         $.ajax({
             url: "/api/csv/SSU/"+userInfo.nickname,
@@ -292,7 +306,7 @@ let userInfo = {}
 
         })
     }
-    //Show ITS sequences in select list
+    //Show LSU sequences in select list
     function listLSU() {
         $.ajax({
             url: "/api/csv/LSU/"+userInfo.nickname,

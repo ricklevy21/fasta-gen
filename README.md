@@ -1,2 +1,2 @@
 # fasta-gen
-a web application that allows user to upload a spreadsheet of sequence data into a relational database. The user can then pull corresponding specimen metadata from GBIF via the occureence API. Finally, FASTA and Source Modifier files can be downloaded for selected records, ready for upload to GenBank.
+A web application that allows user to upload a spreadsheet of sequence data into a relational database. With a click of a button, the user can then pull corresponding specimen metadata from GBIF via the occurrence API, updating each record in the database with up to date occurrence metadata. Finally, FASTA and Source Modifier files can be downloaded for selected records, ready for upload to GenBank.

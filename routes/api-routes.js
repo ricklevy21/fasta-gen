@@ -39,7 +39,14 @@ let routes = (app) => {
   router.get("/files/:name", csvController.downloadFile);
 
   //reset files on backend
-  router.post("/reset", csvController.resetFiles);
+  //router.post("/reset", csvController.resetFiles);
+
+  //delete user generated files on backend
+  router.post("/deleteFiles", csvController.deleteFiles);
+
+  //prepend the headers to the source mod file
+  router.post("/createSourceMod", csvController.createSourceMod);
+
 
   //send user profile info to client
       //auth0 config vars

@@ -25,11 +25,20 @@ let userInfo = {}
     $('#downloadSourceMod').hide()
 
 
-    //event listener to erase all files in resources\static\assets\downloads + uploads and create stub source mod file
+    // //event listener to erase all files in resources\static\assets\downloads + uploads and create stub source mod file
+    // $(window).on("load",function(){
+    //     //call api to run function on backend
+    //     $.ajax({
+    //         url: "/api/csv/reset",
+    //         type: "POST"
+    //     })
+    // })
+
+    //event listener to erase all files in resources\static\assets\downloads + uploads that are older than age defined in controller/csv
     $(window).on("load",function(){
         //call api to run function on backend
         $.ajax({
-            url: "/api/csv/reset",
+            url: "/api/csv/deleteFiles",
             type: "POST"
         })
     })
@@ -104,12 +113,12 @@ let userInfo = {}
     $('#downloadFiles').click(function(e) {
         e.preventDefault()
         //call api to run function on backend to reset files before every generation
-        $.ajax({
-            url: "/api/csv/reset",
-            type: "POST",
-            success: buildQueryList()
-        })
-
+        // $.ajax({
+        //     url: "/api/csv/reset",
+        //     type: "POST",
+        //     success: buildQueryList()
+        // })
+        buildQueryList()
     })
 
 
@@ -143,6 +152,16 @@ let userInfo = {}
             //add selected fields from GBIF to the seqences object
                 //scientificName
                 sequences[i].scientificName = gbifRecord.scientificName
+                //species
+                sequences[i].species = gbifRecord.species
+                //genus
+                sequences[i].genus = gbifRecord.genus
+                //specificEpithet
+                sequences[i].specificEpithet = gbifRecord.specificEpithet
+                //infraspecificEpithet
+                sequences[i].infraspecificEpithet = gbifRecord.infraspecificEpithet
+                //taxonRank
+                sequences[i].taxonRank = gbifRecord.taxonRank
                 //collectionCode
                 sequences[i].collectionCode = gbifRecord.collectionCode
                 //family
@@ -153,6 +172,16 @@ let userInfo = {}
                 sequences[i].recordedBy = gbifRecord.recordedBy
                 //country
                 sequences[i].country = gbifRecord.country
+                //waterBody
+                sequences[i].waterBody = gbifRecord.waterBody
+                //stateProvince
+                sequences[i].stateProvince = gbifRecord.stateProvince
+                //county
+                sequences[i].county = gbifRecord.county
+                //municipality
+                sequences[i].municipality = gbifRecord.municipality
+                //locality
+                sequences[i].locality = gbifRecord.locality
                 //decimalLatitude
                 sequences[i].decimalLatitude = gbifRecord.decimalLatitude
                 //decimalLongitude
@@ -356,19 +385,23 @@ let userInfo = {}
                 contentType: "application/json",
             })
             .then((res) => {
-               //console.log(res)
-               downloadFileName = res[0]
-               sourceModFileName = res[1]
-               requestFileForDownload()
-               requestModsFileForDownload()
+                //console.log(res)
+                downloadFileName = res[0]
+                sourceModFileName = res[1]
+                requestFileForDownload()
+                requestModsFileForDownload()
             })
             .catch((error) => {
                 res.status(500).send({
-                  message: "Failed to retrieve data from database.",
-                  error: error.message
+                    message: "Failed to retrieve data from database.",
+                    error: error.message
                 });
             })
         }
+        $.ajax({
+            url: "/api/csv/createSourceMod",
+            method: "POST"
+        });
     }
 
     //download the fasta file to the client

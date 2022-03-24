@@ -1,0 +1,53 @@
+Sequence_ID	Collected_by	Collection_date	Country	Identified_by	Lat_Lon	Specimen_voucher
+Sequence_ID	Collected_by	Collection_date	Country	Identified_by	Lat_Lon	Specimen_voucher
+DBG-F-030613-ITS	Andrew W. Wilson; Gary Olds	9-Mar-2021	United States of America: Colorado, Denver, Denver Botanic Gardens, 909 York Street, Boettcher Tropical Conservatory, next to duck pond.	Andrew W. Wilson	39.732605 -104.960395	DBG:DBG:DBG-F-030613
+DBG-F-030552-ITS	Ed Lubow; Ikuko Lubow; Andrew W. wilson	18-Jul-2020	United States of America: Colorado, El Paso, Jimmy Camp Creek woodlands about 1km East by Northeast of intersection for Hwy24 and Constitution Ave	Ed Lubow	38.861 -104.655	DBG:DBG:DBG-F-030552
+DBG-F-030545-ITS	Andrew W. Wilson; Ed Lubow; Ikuko Lubow	18-Jul-2020	United States of America: Colorado, El Paso, Jimmy Camp Creek woodlands about 1km East by Northeast of intersection for Hwy24 and Constitution Ave	Andrew W. Wilson	38.866 -104.652	DBG:DBG:DBG-F-030545
+DBG-F-029532-ITS	Justin Loucks	13-Aug-2018	United States of America: Colorado, San Miguel, Near Bear Creek, Telluride		 	DBG:DBG:DBG-F-029532
+DBG-F-030128-ITS	Justin Loucks; Alexandria Sterling	26-Mar-2019	United States of America: Colorado, Douglas, Indian Creek Trail	Ed Lubow	39.3813 -105.1036	DBG:DBG:DBG-F-030128
+DBG-F-030127-ITS	Justin Loucks; Alexandria Sterling	26-Mar-2019	United States of America: Colorado, Douglas, Indian Creek Trail	Ed Lubow	39.3806 -105.1026	DBG:DBG:DBG-F-030127
+DBG-F-030125-ITS	Justin Loucks	17-Oct-2018	United States of America: Colorado, Denver, Cheesman Park	Justin Loucks	39.7348 -104.9653	DBG:DBG:DBG-F-030125
+DBG-F-030126-ITS	Justin Loucks	23-Jan-2019	United States of America: Colorado, Denver, Auraria Campus, Science Building Greenhouse	Andrew Wilson	 	DBG:DBG:DBG-F-030126
+DBG-F-030165-ITS	Justin Loucks	19-May-2019	United States of America: Colorado, Arapahoe, Mission Viejo Park	Ed Lubow	 	DBG:DBG:DBG-F-030165
+DBG-F-030161-ITS	Justin Loucks; Lux Sterling	16-Jun-2019	United States of America: Colorado, Jefferson, Pike National Forest. SW of Redskin Crk. Rd. and Deckers Rd.	Justin Loucks	39.33302 -105.26665	DBG:DBG:DBG-F-030161
+DBG-F-030164-ITS1	Justin Loucks	24-May-2019	United States of America: Colorado, Denver, Congress Park	Justin Loucks	 	DBG:DBG:DBG-F-030164
+DBG-F-030159-ITS1	Justin Loucks; Lux Sterling	26-May-2019	United States of America: Colorado, Boulder, ~2 km SW of Ward, uphill from Peak to Peak Hwy.	Justin Loucks	 	DBG:DBG:DBG-F-030159
+DBG-F-030160-ITS1	Justin Loucks	26-Apr-2019	United States of America: Colorado, Denver, near University Blvd. and 4th Ave.	Justin Loucks	39.72254 -104.959404	DBG:DBG:DBG-F-030160
+DBG-F-030158-ITS1	Justin Loucks; Lux Sterling	16-Jun-2019	United States of America: Colorado, Jefferson, Pike National Forest. SW of Redskin Crk. Rd. and Deckers Rd.	Justin Loucks	39.33438 -105.26284	DBG:DBG:DBG-F-030158
+DBG-F-030168-ITS1	Justin Loucks; Leland Kelly	18-May-2019	United States of America: Colorado, Fremont, Texas Creek Recreation Area	Ed Lubow	38.446 -105.605	DBG:DBG:DBG-F-030168
+DBG-F-030163-ITS1	Justin Loucks; Lux Sterling	16-Jun-2019	United States of America: Colorado, Jefferson, Pike National Forest. SW of Redskin Crk. Rd. and Deckers Rd.	Justin Loucks	39.33176 -105.26852	DBG:DBG:DBG-F-030163
+DBG-F-030166-ITS1	Justin Loucks; Lux Sterling	26-May-2019	United States of America: Colorado, Boulder, Left Hand Creek, off Peak to Peak Hwy.	Lux Sterling	 	DBG:DBG:DBG-F-030166
+DBG-F-030169-ITS1	Justin Loucks; Lux Sterling	16-Jun-2019	United States of America: Colorado, Jefferson, Pike National Forest. SW of Redskin Crk. Rd. and Deckers Rd.	Justin Loucks	39.33325 -105.26657	DBG:DBG:DBG-F-030169
+DBG-F-030155-ITS1	Justin Loucks	30-Dec-2018	United States of America: Colorado, Boulder, near Eldora Peterson Lake	Justin Loucks	39.936725 -105.578003	DBG:DBG:DBG-F-030155
+DBG-F-030157-ITS1	Justin Loucks	13-Aug-2018	United States of America: Colorado, San Miguel, South of Telluride	Justin Loucks	 	DBG:DBG:DBG-F-030157
+DBG-F-030156-ITS2	Justin Loucks	30-Dec-2018	United States of America: Colorado, Boulder, near Eldora Peterson Lake	Justin Loucks	39.9371 -105.57412	DBG:DBG:DBG-F-030156
+DBG-F-030153-ITS2	Justin Loucks; Lux Sterling	19-Jun-2019	United States of America: Colorado, Arapahoe, private garden, near Radcliff Ave. & Lincoln St.	Justin Loucks	 	DBG:DBG:DBG-F-030153
+DBG-F-030154-ITS2	Justin Loucks; Lux Sterling	6-Jul-2019	United States of America: Colorado, Chaffee, Mushroom Gulch	Justin Loucks	38.857 -105.958	DBG:DBG:DBG-F-030154
+DBG-F-030152-ITS2	Justin Loucks	28-May-2019	United States of America: Colorado, Denver, South of Science Building, Auraria Campus	Justin Loucks	 	DBG:DBG:DBG-F-030152
+DBG-F-030207-ITS2	Justin Loucks; Lux Sterling	24-Aug-2019	United States of America: Colorado, Summit, 287 Hamilton Lane, private residence	Justin Loucks	39.37706 -106.06463	DBG:DBG:DBG-F-030207
+DBG-F-030206-ITS2	Justin Loucks; Lux Sterling	28-Jul-2019	United States of America: Colorado, Jefferson, Hankins Pass Trail #630, Lost Creek Wilderness	Justin Loucks	 	DBG:DBG:DBG-F-030206
+DBG-F-030211-ITS2	Justin Loucks	13-Aug-2019	United States of America: Colorado, Denver, Denver Botanic Gardens, near tea house	Justin Loucks	 	DBG:DBG:DBG-F-030211
+DBG-F-030209-ITS2	Justin Loucks	1-Aug-2019	United States of America: Colorado, Denver, Denver Botanic Gardens, near tea house	Justin Loucks	 	DBG:DBG:DBG-F-030209
+DBG-F-030202-ITS2	Justin Loucks; Lux Sterling	28-Jul-2019	United States of America: Colorado, Jefferson, Wigwam Trail #609, Lost Creek Wilderness	Justin Loucks	 	DBG:DBG:DBG-F-030202
+DBG-F-030212-ITS2	Justin Loucks; Lux Sterling	28-Jul-2019	United States of America: Colorado, Jefferson, Wigwam Trail #609, Lost Creek Wilderness	Justin Loucks	 	DBG:DBG:DBG-F-030212
+DBG-F-030215-SSU	Justin Loucks; Lux Sterling	14-Jul-2019	United States of America: Colorado, Douglas, East of Rampart Range Riding Area, SW of Sedalia	Justin Loucks	39.3755 -105.0928	DBG:DBG:DBG-F-030215
+DBG-F-030203-SSU	Justin Loucks; Lux Sterling	24-Aug-2019	United States of America: Colorado, Summit, 287 Hamilton Lane, private residence	Justin Loucks	39.37706 -106.06463	DBG:DBG:DBG-F-030203
+DBG-F-030205-SSU	Justin Loucks; Lux Sterling	24-Aug-2019	United States of America: Colorado, Summit, 287 Hamilton Lane, private residence	Justin Loucks	39.37706 -106.06463	DBG:DBG:DBG-F-030205
+DBG-F-030200-SSU	Justin Loucks; Lux Sterling	24-Aug-2019	United States of America: Colorado, Summit, 287 Hamilton Lane, private residence	Justin Loucks	39.37706 -106.06463	DBG:DBG:DBG-F-030200
+DBG-F-030216-SSU	Justin Loucks; Lux Sterling	28-Jul-2019	United States of America: Colorado, Jefferson, Wigwam Trail #609, Lost Creek Wilderness	Justin Loucks	39.2469 -105.3583	DBG:DBG:DBG-F-030216
+DBG-F-030237-SSU	Justin Loucks; Lux Sterling	6-Jul-2019	United States of America: Colorado, Chaffee, Mushroom Gulch	Justin Loucks	38.8532 -105.9685	DBG:DBG:DBG-F-030237
+DBG-F-030243-SSU	Justin Loucks; Lux Sterling	14-Jul-2019	United States of America: Colorado, Douglas, <1 mile east of Rampart Range Riding Area	Justin Loucks	39.376 -105.0945	DBG:DBG:DBG-F-030243
+DBG-F-030245-SSU	Justin Loucks; Lux Sterling	6-Jul-2019	United States of America: Colorado, Chaffee, Mushroom Gulch	Justin Loucks	38.8573 -105.9601	DBG:DBG:DBG-F-030245
+DBG-F-030387-SSU	Justin Loucks	5-Aug-2019	United States of America: Colorado, Grand, Fool's Creek, Fraser Experimental Forest	Andrew S. Methven	39.847209 -105.91168	DBG:DBG:DBG-F-030387
+DBG-F-030299-LSU	Justin Loucks	5-Aug-2019	United States of America: Colorado, Grand, Fool's Creek, Fraser Experimental Forest	Ed Lubow	39.847209 -105.91168	DBG:DBG:DBG-F-030299
+DBG-F-030286-SSU	Justin Loucks	5-Aug-2019	United States of America: Colorado, Grand, Fool's Creek, Fraser Experimental Forest	Justin Loucks	39.847209 -105.91168	DBG:DBG:DBG-F-030286
+DBG-F-030350-LSU	Justin Loucks	5-Aug-2019	United States of America: Colorado, Clear Creek, Near Berthoud Pass, First creek.	Ed Lubow	39.82832 -105.758895	DBG:DBG:DBG-F-030350
+DBG-F-030558-LSU	Justin Loucks; Lux Sterling	2-Jul-2020	United States of America: Idaho, Lemhi, Meadow Lake Campground		44.432349 -113.320141	DBG:DBG:DBG-F-030558
+DBG-F-030581-LSU	Justin Loucks; Lux Sterling	8-Jul-2020	United States of America: Idaho, Lemhi, Withington Creek Rd.	Justin Loucks	45.03491 -113.80315	DBG:DBG:DBG-F-030581
+DBG-F-030577-LSU	Justin Loucks; Lux Sterling	7-Jul-2020	United States of America: Idaho, Lemhi, Withington Creek Rd., Sal Mountain		45.01535 -113.82169	DBG:DBG:DBG-F-030577
+DBG-F-030592-LSU	Justin Loucks; Lux Sterling	11-Jul-2020	United States of America: Idaho, Lemhi, Bear Valley Campground		44.79324 -113.78017	DBG:DBG:DBG-F-030592
+DBG-F-030579-LSU	Justin Loucks; Lux Sterling	7-Jul-2020	United States of America: Idaho, Lemhi, Withington Creek Rd., Sal Mountain	Justin Loucks	45.01968 -113.81426	DBG:DBG:DBG-F-030579
+DBG-F-030593-LSU	Justin Loucks; Lux Sterling	11-Jul-2020	United States of America: Idaho, Lemhi, Bear Valley Campground		44.79326 -113.78025	DBG:DBG:DBG-F-030593
+DBG-F-030587-LSU	Justin Loucks; Lux Sterling	10-Jul-2020	United States of America: Idaho, Lemhi, Buck Lake		44.78073 -113.83664	DBG:DBG:DBG-F-030587
+DBG-F-030586-LSU	Justin Loucks; Lux Sterling	10-Jul-2020	United States of America: Idaho, Lemhi, Buck Lake		44.78083 -113.83669	DBG:DBG:DBG-F-030586
+USNM 143171-LSU	H. Roberts & T. Neurater	7-Sep-1989	United States of America: Louisiana, , Green Canyon	Bright, Cheryl F.; Ward, Linda A.	27.8394 -91.3761	USNM:IZ:USNM 143171

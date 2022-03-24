@@ -5,6 +5,7 @@ const fs = require("fs");
 const csv = require("fast-csv");
 const baseUrl = "http://localhost:8080/files/";
 const { Op } = require("sequelize");
+const findRemoveSync = require('find-remove')
 
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -206,11 +207,21 @@ const getLSUSequences = (req, res) => {
   const updateSequences = (req, res) => {
     Fasta.update({
       scientificName: req.body.scientificName,
+      species: req.body.species,
+      genus: req.body.genus,
+      specificEpithet: req.body.specificEpithet,
+      infraspecificEpithet: req.body.infraspecificEpithet,
+      taxonRank: req.body.taxonRank,
       collectionCode: req.body.collectionCode,
       family: req.body.family,
       eventDate: req.body.eventDate,
       recordedBy: req.body.recordedBy,
       country: req.body.country,
+      waterBody: req.body.waterBody,
+      stateProvince: req.body.stateProvince,
+      county: req.body.county,
+      municipality: req.body.municipality,
+      locality: req.body.locality,
       decimalLatitude: req.body.decimalLatitude,
       decimalLongitude: req.body.decimalLongitude,
       institutionCode: req.body.institutionCode,
@@ -255,8 +266,6 @@ function writeFASTA(fileName, data) {
         if (err) {
             return console.log(err);
         }
-
-        console.log("Success!")
     })
 }
 
@@ -267,8 +276,6 @@ function writeSourceMod(fileName, data) {
       if (err) {
           return console.log(err);
       }
-
-      console.log("Success!")
     })
 }
 
@@ -276,15 +283,15 @@ function writeSourceMod(fileName, data) {
 function generateFASTA(data) {
   console.log(data)
   if (data.ITS != ""){
-    return `> ${data.SeqID} [organism=${data.scientificName}] ${data.scientificName} Specimen Voucher ${data.catalogNumber} ${data.sequenceTitle}\n${data.ITS}`;
+    return `> ${data.SeqID} [organism=${data.genus} ${data.specificEpithet}] ${data.scientificName} Specimen Voucher ${data.catalogNumber} ${data.sequenceTitle}\n${data.ITS}`;
   } else if (data.ITS1 != ""){
-    return `> ${data.SeqID} [organism=${data.scientificName}] ${data.sequenceTitle}\n${data.ITS1}`;
+    return `> ${data.SeqID} [organism=${data.genus} ${data.specificEpithet}] ${data.scientificName} Specimen Voucher ${data.catalogNumber} ${data.sequenceTitle}\n${data.ITS1}`;
   }else if (data.ITS2 != ""){
-    return `> ${data.SeqID} [organism=${data.scientificName}] ${data.sequenceTitle}\n${data.ITS2}`;
+    return `> ${data.SeqID} [organism=${data.genus} ${data.specificEpithet}] ${data.scientificName} Specimen Voucher ${data.catalogNumber} ${data.sequenceTitle}\n${data.ITS2}`;
   }else if (data.SSUrRNA_18s != ""){
-    return `> ${data.SeqID} [organism=${data.scientificName}] ${data.sequenceTitle}\n${data.SSUrRNA_18s}`;
+    return `> ${data.SeqID} [organism=${data.genus} ${data.specificEpithet}] ${data.scientificName} Specimen Voucher ${data.catalogNumber} ${data.sequenceTitle}\n${data.SSUrRNA_18s}`;
   }else if (data.LSUrRNA_28s != ""){
-    return `> ${data.SeqID} [organism=${data.scientificName}] ${data.sequenceTitle}\n${data.LSUrRNA_28s}`;
+    return `> ${data.SeqID} [organism=${data.genus} ${data.specificEpithet}] ${data.scientificName} Specimen Voucher ${data.catalogNumber} ${data.sequenceTitle}\n${data.LSUrRNA_28s}`;
   }
 }
 
@@ -298,7 +305,7 @@ function generateSourceModData(data) {
   let year = eventDate.getFullYear()
   let formattedDate = `${day}-${month}-${year}`
   
-  return `${data.SeqID}\t${data.recordedBy}\t${formattedDate}\t${data.country}\t${data.identifiedBy}\t${data.decimalLatitude} ${data.decimalLongitude}\t${data.institutionCode}:${data.collectionCode}:${data.catalogNumber}`;
+  return `${data.SeqID}\t${data.recordedBy}\t${formattedDate}\t${data.country}: ${data.stateProvince}, ${data.county}, ${data.locality}\t${data.identifiedBy}\t${data.decimalLatitude} ${data.decimalLongitude}\t${data.institutionCode}:${data.collectionCode}:${data.catalogNumber}`;
 }
 
 
@@ -317,53 +324,68 @@ var date = new Date();
 console.log(date)
 
 //function that creates the source modifier file
+// function createSourceMod(){
+//   const smHeaders = 'Sequence_ID\tCollected_by\tCollection_date\tCountry\tIdentified_by\tLat_Lon\tSpecimen_voucher\n'
+//   fs.writeFile(`./resources/static/assets/downloads/${date.yyyymmdd()}_FASTA-GEN_mods.txt`, smHeaders, function(err) {
+//     if (err) {
+//       return console.log(err);
+//     }
+//   })
+// }
+
 function createSourceMod(){
-  const smHeaders = 'Sequence_ID\tCollected_by\tCollection_date\tCountry\tIdentified_by\tLat_Lon\tSpecimen_voucher\n'
-  fs.writeFile(`./resources/static/assets/downloads/${date.yyyymmdd()}_FASTA-GEN_mods.txt`, smHeaders, function(err) {
-    if (err) {
-      return console.log(err);
-    }
-  })
+    const smHeaders = 'Sequence_ID\tCollected_by\tCollection_date\tCountry\tIdentified_by\tLat_Lon\tSpecimen_voucher\n'
+    var data = fs.readFileSync(`./resources/static/assets/downloads/${date.yyyymmdd()}_FASTA-GEN_mods.txt`); //read existing contents into data
+    var fd = fs.openSync(`./resources/static/assets/downloads/${date.yyyymmdd()}_FASTA-GEN_mods.txt`, 'w+');
+    var buffer = Buffer.from(smHeaders);
+    fs.writeSync(fd, buffer, 0, buffer.length, 0); //write new data
+    fs.writeSync(fd, data, 0, data.length, buffer.length); //append old data
+    // or fs.appendFile(fd, data);
+    //fs.close(fd);
+  }
+
+//function to delete the FASTA and Source Modifier files once meet the specified age
+function deleteFiles(){
+    var result = findRemoveSync('./resources/static/assets/downloads', {
+        age: { seconds: 60 },
+        extensions: ['.fasta', '.txt'],
+        limit: 100
+      })
 }
+// //function that overwrites an existing FASTA file with a blank one.
+// function clearFasta(){
+//   const blank = ''
+//   fs.writeFile(`./resources/static/assets/downloads/${date.yyyymmdd()}_FASTA-GEN.fasta`, blank, function(err) {
+//     if (err) {
+//       return console.log(err);
+//     }
+//   })
+// }
 
-//function that overwrites an existing FASTA file with a blank one.
-function clearFasta(){
-  const blank = ''
-  fs.writeFile(`./resources/static/assets/downloads/${date.yyyymmdd()}_FASTA-GEN.fasta`, blank, function(err) {
-    if (err) {
-      return console.log(err);
-    }
-  })
-}
-
-//delete all existing files in downloads dir, and then create stub file for source mod, when page is loaded
-const resetFiles = () => {
-console.log("FILES RESET")
-  //if the source mods file does not exist, run function to create it
-  fs.access(`./resources/static/assets/downloads/${date.yyyymmdd()}_FASTA-GEN_mods.txt`, (err) => {
-    if (err) {
-      createSourceMod()
-      console.log("source mods file does not exist - creating one")
-  // if it does exist, write over it
-    } else {
-      console.log("writing over source mods file")
-      createSourceMod()
-    }
-  })
-  //if the fasta file does not exist, do nothing
-  fs.access(`./resources/static/assets/downloads/${date.yyyymmdd()}_FASTA-GEN_mods.txt`, (err) => {
-    if (err) {
-      console.log("all good")
-  // if it does exist, write over it
-    } else {
-      clearFasta()
-    }
-  })
-}
-
-
-
-//create the source modifier file template
+// //delete all existing files in downloads dir, and then create stub file for source mod, when page is loaded
+// const resetFiles = () => {
+// console.log("FILES RESET")
+//   //if the source mods file does not exist, run function to create it
+//   fs.access(`./resources/static/assets/downloads/${date.yyyymmdd()}_FASTA-GEN_mods.txt`, (err) => {
+//     if (err) {
+//       createSourceMod()
+//       console.log("source mods file does not exist - creating one")
+//   // if it does exist, write over it
+//     } else {
+//       console.log("writing over source mods file")
+//       createSourceMod()
+//     }
+//   })
+//   //if the fasta file does not exist, do nothing
+//   fs.access(`./resources/static/assets/downloads/${date.yyyymmdd()}_FASTA-GEN_mods.txt`, (err) => {
+//     if (err) {
+//       console.log("all good")
+//   // if it does exist, write over it
+//     } else {
+//       clearFasta()
+//     }
+//   })
+// }
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //download the specified file
@@ -390,5 +412,7 @@ const downloadFile = (req, res) => {
     updateSequences,
     getSequencesForDownload,
     downloadFile,
-    resetFiles
+    deleteFiles,
+    createSourceMod
+    //resetFiles
   };

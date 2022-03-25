@@ -351,6 +351,7 @@ function deleteFiles(){
         extensions: ['.fasta', '.txt'],
         limit: 100
       })
+      console.log(">>>DELETING OLD FILES")
 }
 // //function that overwrites an existing FASTA file with a blank one.
 // function clearFasta(){

@@ -34,14 +34,14 @@ let userInfo = {}
     //     })
     // })
 
-    //event listener to erase all files in resources\static\assets\downloads + uploads that are older than age defined in controller/csv
-    $(window).on("load",function(){
-        //call api to run function on backend
-        $.ajax({
-            url: "/api/csv/deleteFiles",
-            type: "POST"
-        })
-    })
+    // //event listener to erase all files in resources\static\assets\downloads + uploads that are older than age defined in controller/csv
+    // $(window).on("load",function(){
+    //     //call api to run function on backend
+    //     $.ajax({
+    //         url: "/api/csv/deleteFiles",
+    //         type: "POST"
+    //     })
+    // })
 
 
     //event listener to send csv to server and upload to database
@@ -369,9 +369,19 @@ let userInfo = {}
                 for (var i = 0; i < selectedSeqs.length; i++){
                     queryList.push(selectedSeqs[i])
                 }
+                truncateFiles()
                 querySeqsForDownload()
             }
         }
+
+    //function that calls api to truncate the fasta file
+    function truncateFiles(){
+        console.log("script: truncateFasta")
+        $.ajax({
+            url: "/api/csv/truncateFiles",
+            method: "POST"
+        })
+    }
 
 
     //query database for sequences to download

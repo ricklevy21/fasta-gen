@@ -335,24 +335,34 @@ console.log(date)
 
 function createSourceMod(){
     const smHeaders = 'Sequence_ID\tCollected_by\tCollection_date\tCountry\tIdentified_by\tLat_Lon\tSpecimen_voucher\n'
-    var data = fs.readFileSync(`./resources/static/assets/downloads/${date.yyyymmdd()}_FASTA-GEN_mods.txt`); //read existing contents into data
+    //var data = fs.readFileSync(`./resources/static/assets/downloads/${date.yyyymmdd()}_FASTA-GEN_mods.txt`); //read existing contents into data
     var fd = fs.openSync(`./resources/static/assets/downloads/${date.yyyymmdd()}_FASTA-GEN_mods.txt`, 'w+');
     var buffer = Buffer.from(smHeaders);
     fs.writeSync(fd, buffer, 0, buffer.length, 0); //write new data
-    fs.writeSync(fd, data, 0, data.length, buffer.length); //append old data
+    //fs.writeSync(fd, data, 0, data.length, buffer.length); //append old data
     // or fs.appendFile(fd, data);
     //fs.close(fd);
   }
 
-//function to delete the FASTA and Source Modifier files once meet the specified age
-function deleteFiles(){
-    var result = findRemoveSync('./resources/static/assets/downloads', {
-        age: { seconds: 60 },
-        extensions: ['.fasta', '.txt'],
-        limit: 100
-      })
-      console.log(">>>DELETING OLD FILES")
-}
+//function to truncate FASTA and Source Modifier files
+function truncateFiles(){
+  //let modsFileName =  `resources/static/assets/downloads/${date.yyyymmdd()}_FASTA-GEN_mods.txt`
+  let fastaFileName = `resources/static/assets/downloads/${date.yyyymmdd()}_FASTA-GEN.fasta`
+  fs.truncate(fastaFileName, 0, function(){console.log('fasta truncated')})
+  //fs.truncate(modsFileName, 0, function(){console.log('mods truncated')})
+  }
+
+// //function to delete the FASTA and Source Modifier files once meet the specified age
+// function deleteFiles(){
+//     var result = findRemoveSync('./resources/static/assets/downloads', {
+//         age: { seconds: 60 },
+//         extensions: ['.fasta', '.txt'],
+//         limit: 100
+//       })
+//       console.log(">>>DELETING OLD FILES")
+// }
+
+
 // //function that overwrites an existing FASTA file with a blank one.
 // function clearFasta(){
 //   const blank = ''
@@ -413,7 +423,9 @@ const downloadFile = (req, res) => {
     updateSequences,
     getSequencesForDownload,
     downloadFile,
-    deleteFiles,
+    truncateFiles,
+    //deleteFiles,
     createSourceMod
     //resetFiles
+
   };

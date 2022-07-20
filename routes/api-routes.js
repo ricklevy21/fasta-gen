@@ -38,11 +38,11 @@ let routes = (app) => {
   //GET /api/csv/files
   router.get("/files/:name", csvController.downloadFile);
 
-  //reset files on backend
-  //router.post("/reset", csvController.resetFiles);
+  //truncate fasta and mods files on backend
+  router.post("/truncateFiles", csvController.truncateFiles);
 
-  //delete user generated files on backend
-  router.post("/deleteFiles", csvController.deleteFiles);
+  // //delete user generated files on backend
+  // router.post("/deleteFiles", csvController.deleteFiles);
 
   //prepend the headers to the source mod file
   router.post("/createSourceMod", csvController.createSourceMod);
@@ -58,6 +58,9 @@ let routes = (app) => {
         clientID: process.env.AUTH0_ClientID,
         issuerBaseURL: 'https://dev-bh957c52.us.auth0.com'
     };
+
+
+	
   
   //AUTH) MIDDLEWARE
   // auth router attaches /login, /logout, and /callback routes to the baseURL

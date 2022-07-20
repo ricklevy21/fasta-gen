@@ -245,11 +245,12 @@ const getLSUSequences = (req, res) => {
       }
     })
       .then((data) => {
-        res.send([`${date.yyyymmdd()}_FASTA-GEN.fasta`,`${date.yyyymmdd()}_FASTA-GEN_mods.txt`])
+        //console.log(data)
+        res.send([`${date.yyyymmdd()}_Specimods.fasta`,`${date.yyyymmdd()}_Specimods_mods.txt`])
         for (let i =0; i < data.length; i++){
-          console.log(Date.now())
-          writeFASTA(`${date.yyyymmdd()}_FASTA-GEN.fasta`, data[i].dataValues)
-          writeSourceMod(`${date.yyyymmdd()}_FASTA-GEN_mods.txt`, data[i].dataValues)
+          //console.log(Date.now())
+          writeFASTA(`${date.yyyymmdd()}_Specimods.fasta`, data[i].dataValues)
+          writeSourceMod(`${date.yyyymmdd()}_Specimods_mods.txt`, data[i].dataValues)
         }
       })
       .catch((err) => {
@@ -281,7 +282,7 @@ function writeSourceMod(fileName, data) {
 
 //function that defines how to write the fasta file
 function generateFASTA(data) {
-  console.log(data)
+  //console.log(data)
   if (data.ITS != ""){
     return `> ${data.SeqID} [organism=${data.genus} ${data.specificEpithet}] ${data.scientificName} Specimen Voucher ${data.catalogNumber} ${data.sequenceTitle}\n${data.ITS}`;
   } else if (data.ITS1 != ""){
@@ -297,6 +298,7 @@ function generateFASTA(data) {
 
 //function that defines how to write data the source modifier file
 function generateSourceModData(data) {
+  //console.log(data)
   // format the date
   const monthNames = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
   let eventDate = new Date(data.eventDate)
@@ -321,22 +323,11 @@ Date.prototype.yyyymmdd = function() {
 };
 
 var date = new Date();
-console.log(date)
-
-//function that creates the source modifier file
-// function createSourceMod(){
-//   const smHeaders = 'Sequence_ID\tCollected_by\tCollection_date\tCountry\tIdentified_by\tLat_Lon\tSpecimen_voucher\n'
-//   fs.writeFile(`./resources/static/assets/downloads/${date.yyyymmdd()}_FASTA-GEN_mods.txt`, smHeaders, function(err) {
-//     if (err) {
-//       return console.log(err);
-//     }
-//   })
-// }
 
 function createSourceMod(){
     const smHeaders = 'Sequence_ID\tCollected_by\tCollection_date\tCountry\tIdentified_by\tLat_Lon\tSpecimen_voucher\n'
-    //var data = fs.readFileSync(`./resources/static/assets/downloads/${date.yyyymmdd()}_FASTA-GEN_mods.txt`); //read existing contents into data
-    var fd = fs.openSync(`./resources/static/assets/downloads/${date.yyyymmdd()}_FASTA-GEN_mods.txt`, 'w+');
+    //var data = fs.readFileSync(`./resources/static/assets/downloads/${date.yyyymmdd()}_Specimods_mods.txt`); //read existing contents into data
+    var fd = fs.openSync(`./resources/static/assets/downloads/${date.yyyymmdd()}_Specimods_mods.txt`, 'w+');
     var buffer = Buffer.from(smHeaders);
     fs.writeSync(fd, buffer, 0, buffer.length, 0); //write new data
     //fs.writeSync(fd, data, 0, data.length, buffer.length); //append old data
@@ -346,8 +337,8 @@ function createSourceMod(){
 
 //function to truncate FASTA and Source Modifier files
 function truncateFiles(){
-  //let modsFileName =  `resources/static/assets/downloads/${date.yyyymmdd()}_FASTA-GEN_mods.txt`
-  let fastaFileName = `resources/static/assets/downloads/${date.yyyymmdd()}_FASTA-GEN.fasta`
+  //let modsFileName =  `resources/static/assets/downloads/${date.yyyymmdd()}_Specimods_mods.txt`
+  let fastaFileName = `resources/static/assets/downloads/${date.yyyymmdd()}_Specimods.fasta`
   fs.truncate(fastaFileName, 0, function(){console.log('fasta truncated')})
   //fs.truncate(modsFileName, 0, function(){console.log('mods truncated')})
   }

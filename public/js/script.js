@@ -112,12 +112,6 @@ let userInfo = {}
     //event listener for the download files button
     $('#downloadFiles').click(function(e) {
         e.preventDefault()
-        //call api to run function on backend to reset files before every generation
-        // $.ajax({
-        //     url: "/api/csv/reset",
-        //     type: "POST",
-        //     success: buildQueryList()
-        // })
         buildQueryList()
     })
 
@@ -356,23 +350,50 @@ let userInfo = {}
 
     //submit selected sequences for file download
     function buildQueryList() {
-            //empty queryList
-            queryList = []
-            //get all sequences selected by user
-            var selectedSeqs = $('#sequenceList :selected').map(function(i, el) {
-                return $(el).val()
-            })
-            if (selectedSeqs.length == 0){
-                alert("Please select at least 1 sequence")
-            }else {
-                //add each selection to the global array 'queryList'
-                for (var i = 0; i < selectedSeqs.length; i++){
-                    queryList.push(selectedSeqs[i])
-                }
-                truncateFiles()
-                querySeqsForDownload()
-            }
+            // //empty queryList
+            // queryList = []
+            // //get all sequences selected by user
+            // var selectedSeqs = $('#sequenceList :selected').map(function(i, el) {
+            //     return $(el).val()
+            // })
+            // if (selectedSeqs.length == 0){
+            //     alert("Please select at least 1 sequence")
+            // }else {
+            //     //add each selection to the global array 'queryList'
+            //     for (var i = 0; i < selectedSeqs.length; i++){
+            //         queryList.push(selectedSeqs[i])
+            //     }
+            //     truncateFiles()
+            //     querySeqsForDownload()
+            // }
         }
+
+    //truncate any existing files from today's date, then build a list of selected sequences, then run the db query function
+    function buildQueryList(){
+        let p = new Promise((resolve,reject) => {
+            resolve(truncateFiles())
+        })
+        .then(function(){
+                //empty queryList
+                queryList = []
+                //get all sequences selected by user
+                var selectedSeqs = $('#sequenceList :selected').map(function(i, el) {
+                    return $(el).val()
+                })
+                if (selectedSeqs.length == 0){
+                    alert("Please select at least 1 sequence")
+                }else {
+                    //add each selection to the global array 'queryList'
+                    for (var i = 0; i < selectedSeqs.length; i++){
+                        queryList.push(selectedSeqs[i])
+                    }
+                }
+        }).then(function(){
+            querySeqsForDownload()
+        }).catch((error) => {
+            console.log(error)            
+        })
+    }
 
     //function that calls api to truncate the fasta file
     function truncateFiles(){
@@ -386,7 +407,8 @@ let userInfo = {}
 
     //query database for sequences to download
     function querySeqsForDownload(){
-        dataForDownload = []
+        //dataForDownload = []
+        createSourceMod()
         for(let i = 0; i < queryList.length; i++){
             $.ajax({
                 url: "/api/csv/sequencesDownload/"+queryList[i],
@@ -395,7 +417,6 @@ let userInfo = {}
                 contentType: "application/json",
             })
             .then((res) => {
-                //console.log(res)
                 downloadFileName = res[0]
                 sourceModFileName = res[1]
                 requestFileForDownload()
@@ -408,6 +429,11 @@ let userInfo = {}
                 });
             })
         }
+
+    }
+
+    //call api to create the sourceModFile
+    function createSourceMod(){
         $.ajax({
             url: "/api/csv/createSourceMod",
             method: "POST"
@@ -445,11 +471,11 @@ let userInfo = {}
     //download the template file to the client
     function requestTemplateForDownload(){
         $.ajax({
-            url: "/api/csv/files/fasta-gen_TEMPLATE.csv",
+            url: "/api/csv/files/Specimods_TEMPLATE.csv",
             method: "GET"
         })
         .then(function() {
-            var url = 'https://stormy-river-74459.herokuapp.com/api/csv/files/fasta-gen_TEMPLATE.csv';          
+            var url = 'https://stormy-river-74459.herokuapp.com/api/csv/files/Specimods_TEMPLATE.csv';          
         })
     }
 

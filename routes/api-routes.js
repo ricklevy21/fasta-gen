@@ -59,9 +59,6 @@ let routes = (app) => {
         issuerBaseURL: 'https://dev-bh957c52.us.auth0.com'
     };
 
-
-	
-  
   //AUTH) MIDDLEWARE
   // auth router attaches /login, /logout, and /callback routes to the baseURL
   app.use(auth(config));

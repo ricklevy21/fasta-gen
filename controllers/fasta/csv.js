@@ -307,7 +307,7 @@ function generateSourceModData(data) {
   let year = eventDate.getFullYear()
   let formattedDate = `${day}-${month}-${year}`
   
-  return `${data.SeqID}\t${data.genus}\s${data.specificEpithet}\t${data.recordedBy}\t${formattedDate}\t${data.country}: ${data.stateProvince}, ${data.county}, ${data.locality}\t${data.identifiedBy}\t${data.decimalLatitude} ${data.decimalLongitude}\t${data.institutionCode}:${data.collectionCode}:${data.catalogNumber}`;
+  return `${data.SeqID}\t${data.genus} ${data.specificEpithet}\t${data.recordedBy}\t${formattedDate}\t${data.country}: ${data.stateProvince}, ${data.county}, ${data.locality}\t${data.identifiedBy}\t${data.decimalLatitude} ${data.decimalLongitude}\t${data.institutionCode}:${data.collectionCode}:${data.catalogNumber}`;
 }
 
 

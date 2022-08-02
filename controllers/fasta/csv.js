@@ -307,7 +307,7 @@ function generateSourceModData(data) {
   let year = eventDate.getFullYear()
   let formattedDate = `${day}-${month}-${year}`
   
-  return `${data.SeqID}\t${data.recordedBy}\t${formattedDate}\t${data.country}: ${data.stateProvince}, ${data.county}, ${data.locality}\t${data.identifiedBy}\t${data.decimalLatitude} ${data.decimalLongitude}\t${data.institutionCode}:${data.collectionCode}:${data.catalogNumber}`;
+  return `${data.SeqID}\t${data.genus}\s${data.specificEpithet}\t${data.recordedBy}\t${formattedDate}\t${data.country}: ${data.stateProvince}, ${data.county}, ${data.locality}\t${data.identifiedBy}\t${data.decimalLatitude} ${data.decimalLongitude}\t${data.institutionCode}:${data.collectionCode}:${data.catalogNumber}`;
 }
 
 
@@ -325,7 +325,7 @@ Date.prototype.yyyymmdd = function() {
 var date = new Date();
 
 function createSourceMod(){
-    const smHeaders = 'Sequence_ID\tCollected_by\tCollection_date\tCountry\tIdentified_by\tLat_Lon\tSpecimen_voucher\n'
+    const smHeaders = 'Sequence_ID\tOrganism\tCollected_by\tCollection_date\tCountry\tIdentified_by\tLat_Lon\tSpecimen_voucher\n'
     //var data = fs.readFileSync(`./resources/static/assets/downloads/${date.yyyymmdd()}_Specimods_mods.txt`); //read existing contents into data
     var fd = fs.openSync(`./resources/static/assets/downloads/${date.yyyymmdd()}_Specimods_mods.txt`, 'w+');
     var buffer = Buffer.from(smHeaders);

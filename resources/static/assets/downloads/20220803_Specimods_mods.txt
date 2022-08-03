@@ -1,0 +1,2 @@
+Sequence_ID	Organism	Collected_by	Collection_date	Country	Identified_by	Lat_Lon	Specimen_voucher
+DBG-F-030166-ITS1	Guepiniopsis alpina	Justin Loucks; Lux Sterling	26-May-2019	United States of America: Colorado, Boulder, Left Hand Creek, off Peak to Peak Hwy.	Lux Sterling	 	DBG:DBG:DBG-F-030166

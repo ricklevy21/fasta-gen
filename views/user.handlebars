@@ -33,8 +33,45 @@
     <a id="downloadSourceMod">Download Source Modifier file</a>
     <br>
     <br>
+    <button id="openModal" type="submit" data-toggle="modal" data-target="#modal">Delete Selected Sequences</button>
+    <br>
+    <br>
     <select id="sequenceList" class="form-select" multiple size="20" style="width: 75%;"></select>
   </form>
+
+{{!-- Delete Modal --}}
+{{!-- <div id="modal" class="modal" tabindex="-1" role="dialog">
+  <form class="modal-content">
+    <div class="container">
+      <h1>Delete Selected Sequences</h1>
+      <p>Are you sure you want to delete tghe selected sequences? This operation cannot be undone.</p>
+
+      <div>
+        <button id="cancelDelete">Cancel</button>
+        <button id="confirmDelete">Delete</button>
+      </div>
+    </div>
+  </form>
+</div> --}}
+
+<div id="modal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Delete Selected Sequences</h5>
+        <button type="button" id="closeModal" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to delete tghe selected sequences? This operation cannot be undone.</p>
+      </div>
+      <div class="modal-footer">
+        <button id="confirmDelete" type="button">Delete</button>
+        <button id="cancelDelete" type="button" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 

@@ -1,4 +1,6 @@
+
 $(document).ready(function() {
+
 
 //GLOABL VARIABLES
 //---------------------------------------------------------------------------------------------------------------
@@ -6,7 +8,7 @@ let sequences
 
 let listOfSequences = []
 
-let queryList
+let queryList = []
 
 let dataForDownload = []
 
@@ -115,7 +117,26 @@ let userInfo = {}
         buildQueryList()
     })
 
+    //event listener for the confirm delete sequences button
+    $('#confirmDelete').click(function(e) {
+        e.preventDefault()
+        buildQueryListDelete()
+        $('#modal').hide();
+        location.reload(true)
+    })
 
+    //event listener to close and or cancel the delete modal
+    $('#cancelDelete, #closeModal').click(function(e){
+        e.preventDefault()
+        $('#modal').hide();
+    })
+
+    //event listener for opening up the delete modal
+    $("#openModal").click(function(e){
+        e.preventDefault()
+        console.log("opening modal")
+        $('#modal').show();
+    })
 
 
 //FUNCTIONS
@@ -348,27 +369,28 @@ let userInfo = {}
         })
     }
 
-    //submit selected sequences for file download
-    function buildQueryList() {
-            // //empty queryList
-            // queryList = []
-            // //get all sequences selected by user
-            // var selectedSeqs = $('#sequenceList :selected').map(function(i, el) {
-            //     return $(el).val()
-            // })
-            // if (selectedSeqs.length == 0){
-            //     alert("Please select at least 1 sequence")
-            // }else {
-            //     //add each selection to the global array 'queryList'
-            //     for (var i = 0; i < selectedSeqs.length; i++){
-            //         queryList.push(selectedSeqs[i])
-            //     }
-            //     truncateFiles()
-            //     querySeqsForDownload()
-            // }
+
+    //build a list of sequence records to be deleted by user
+    function buildQueryListDelete() {
+        console.log("in buildQueryListDelete")
+            //empty queryList
+            queryList = []
+            //get all sequences selected by user
+            var selectedSeqs = $('#sequenceList :selected').map(function(i, el) {
+                return $(el).val()
+            })
+            if (selectedSeqs.length == 0){
+                alert("Please select at least 1 sequence")
+            }else {
+                //add each selection to the global array 'queryList'
+                for (var i = 0; i < selectedSeqs.length; i++){
+                    queryList.push(selectedSeqs[i])
+                }
+                deleteSeqs()
+            }
         }
 
-    //truncate any existing files from today's date, then build a list of selected sequences, then run the db query function
+    //build a list of selected sequences, then run the db query function
     function buildQueryList(){
         let p = new Promise((resolve,reject) => {
             resolve(truncateFiles())
@@ -489,6 +511,27 @@ let userInfo = {}
             userInfo = res
             $("#userName").append(res.nickname)
         })
+    }
+    
+    //call api that deletes the selected sequences
+    function deleteSeqs(){
+        for(let i = 0; i < queryList.length; i++){
+            $.ajax({
+                url: "/api/csv/deleteSequences/"+queryList[i],
+                method: "DELETE",
+                contentType: "application/json"
+            })
+            .then((res) => {
+                console.log(res.data)
+            })
+            .catch((error) => {
+                res.status(500).send({
+                    message: "Failed to delete data from database.",
+                    error: error.message
+                });
+            })
+        }
+
     }
 
     getUserInfo()

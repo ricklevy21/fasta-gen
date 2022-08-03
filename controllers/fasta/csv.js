@@ -343,6 +343,18 @@ function truncateFiles(){
   //fs.truncate(modsFileName, 0, function(){console.log('mods truncated')})
   }
 
+//function to delete selected sequences
+const deleteSequences = (req,res) => {
+  Fasta.destroy({
+    where: {
+      id: req.params.id
+    }
+  })
+  .then((res) => {
+    console.log(res)
+  })
+}
+
 // //function to delete the FASTA and Source Modifier files once meet the specified age
 // function deleteFiles(){
 //     var result = findRemoveSync('./resources/static/assets/downloads', {
@@ -416,7 +428,8 @@ const downloadFile = (req, res) => {
     downloadFile,
     truncateFiles,
     //deleteFiles,
-    createSourceMod
+    createSourceMod,
     //resetFiles
+    deleteSequences
 
   };

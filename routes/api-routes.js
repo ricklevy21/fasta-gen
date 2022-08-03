@@ -3,7 +3,6 @@ const router = express.Router();
 const csvController = require("../controllers/fasta/csv");
 const upload = require("../middlewares/upload");
 const { auth, requiresAuth } = require('express-openid-connect');
-require('dotenv').config();
 
 
 
@@ -46,6 +45,9 @@ let routes = (app) => {
 
   //prepend the headers to the source mod file
   router.post("/createSourceMod", csvController.createSourceMod);
+
+  //DELETE /api/csv/deleteSequences
+  router.delete("/deleteSequences/:id", csvController.deleteSequences);
 
 
   //send user profile info to client

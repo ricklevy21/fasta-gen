@@ -11,8 +11,8 @@ const db = require("./models");
 const app = express();
 
 //define PORT where server will listen for requests (production || developement)
-//var PORT = process.env.PORT || 8080;
-var PORT = 8080
+var PORT = process.env.PORT || 8080;
+//var PORT = 8080
 
 //set the global root dir
 global.__basedir = __dirname + "/.";

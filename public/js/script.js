@@ -123,6 +123,7 @@ let userInfo = {}
         buildQueryListDelete()
         $('#modal').hide();
         location.reload(true)
+
     })
 
     //event listener to close and or cancel the delete modal
@@ -502,18 +503,18 @@ let userInfo = {}
     }
 
     //get user info (if not logged in, then nothing really happens)
-    function getUserInfo() {
-        $.ajax({
-            url: "/api/csv/user",
-            method: "GET"
-        })
-        .then((res) => {
-            userInfo = res
-            $("#userName").append(res.nickname)
-        })
-    }
+    // function getUserInfo() {
+    //     $.ajax({
+    //         url: "/api/csv/user",
+    //         method: "GET"
+    //     })
+    //     .then((res) => {
+    //         userInfo = res
+    //         $("#userName").append(res.nickname)
+    //     })
+    // }
     
-    //call api that deletes the selected sequences
+    // //call api that deletes the selected sequences
     function deleteSeqs(){
         for(let i = 0; i < queryList.length; i++){
             $.ajax({

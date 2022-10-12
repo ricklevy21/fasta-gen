@@ -50,16 +50,27 @@ let routes = (app) => {
   router.delete("/deleteSequences/:id", csvController.deleteSequences);
 
 
-  //send user profile info to client
+  // //send user profile info to client
+  //     //auth0 config vars
+  //     const config = {
+  //       authRequired: false,
+  //       auth0Logout: true,
+  //       secret: process.env.AUTH0_SECRET,
+  //       baseURL: process.env.AUTH0_BASEURL,
+  //       clientID: process.env.AUTH0_ClientID,
+  //       issuerBaseURL: 'https://dev-bh957c52.us.auth0.com'
+  //   };
+
+    //send user profile info to client
       //auth0 config vars
       const config = {
         authRequired: false,
         auth0Logout: true,
-        secret: process.env.AUTH0_SECRET,
-        baseURL: process.env.AUTH0_BASEURL,
-        clientID: process.env.AUTH0_ClientID,
+        secret: "iFO1aVvnV-jgnshtV-mfuFbRhs_G0f0E5IxSTFFNZjFrLaF2tVKNJSk7q7HZqKRX",
+        baseURL: "http://localhost:8080",
+        clientID: "i4WoV5MLZw1KreLv6fQAosz5tO3X4WZN",
         issuerBaseURL: 'https://dev-bh957c52.us.auth0.com'
-    };
+    };  
 
   //AUTH) MIDDLEWARE
   // auth router attaches /login, /logout, and /callback routes to the baseURL

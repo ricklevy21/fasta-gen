@@ -503,16 +503,16 @@ let userInfo = {}
     }
 
     //get user info (if not logged in, then nothing really happens)
-    // function getUserInfo() {
-    //     $.ajax({
-    //         url: "/api/csv/user",
-    //         method: "GET"
-    //     })
-    //     .then((res) => {
-    //         userInfo = res
-    //         $("#userName").append(res.nickname)
-    //     })
-    // }
+    function getUserInfo() {
+        $.ajax({
+            url: "/api/csv/user",
+            method: "GET"
+        })
+        .then((res) => {
+            userInfo = res
+            $("#userName").append(res.nickname)
+        })
+    }
     
     // //call api that deletes the selected sequences
     function deleteSeqs(){

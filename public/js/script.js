@@ -213,7 +213,7 @@ let userInfo = {}
                     showAlert = false;
                 }
             }).catch((error) => {
-                res.status(500).send({
+                response.status(500).send({
                   message: "Failed to sync data from GBIF.",
                   error: error.message,
                 });

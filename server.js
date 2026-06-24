@@ -1,3 +1,5 @@
+require('dotenv').config();  // ← ADD THIS as line 1
+
 //dependencies
 const express = require("express");
 const exphbs = require("express-handlebars");

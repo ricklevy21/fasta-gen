@@ -70,14 +70,17 @@ let userInfo = {}
     //event listener to sync GBIF data
     $('#syncGBIF').submit(function(e) {
         e.preventDefault()
+        $('#gbifSpinner').show();
         $.ajax({
             url: '/api/csv/syncGBIF/' + userInfo.nickname,
             method: 'POST'
         })
         .then(function(response) {
+            $('#gbifSpinner').hide();
             alert(response.message);
         })
         .catch(function() {
+            $('#gbifSpinner').hide();
             alert('GBIF sync failed. Check the console for details.');
         });
     })

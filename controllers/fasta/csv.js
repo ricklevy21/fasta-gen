@@ -414,6 +414,73 @@ const downloadFile = (req, res) => {
     }
   })
 }
+
+// Fetch GBIF metadata for each sequence and update the database (Claude Sonnet 4.6)
+const syncGBIF = async (req, res) => {
+  try {
+    const sequences = await Fasta.findAll({ where: { user: req.params.nickname } });
+
+    if (!sequences.length) {
+      return res.status(404).send({ message: "No sequences found for this user." });
+    }
+
+    let synced = 0;
+    let skipped = 0;
+
+    for (const seq of sequences) {
+      const url = `https://api.gbif.org/v1/occurrence/search/?catalogNumber=${seq.catalogNumber}&collectionCode=${seq.collectionCode}`;
+      
+      const response = await fetch(url);
+      if (!response.ok) {
+        console.warn(`GBIF request failed for ${seq.catalogNumber}: ${response.status}`);
+        skipped++;
+        continue;
+      }
+
+      const data = await response.json();
+      const gbif = data.results[0];
+
+      if (!gbif) {
+        console.warn(`No GBIF match found for catalogNumber: ${seq.catalogNumber}`);
+        skipped++;
+        continue;
+      }
+
+      await seq.update({
+        scientificName:       gbif.scientificName,
+        species:              gbif.species,
+        genus:                gbif.genus,
+        specificEpithet:      gbif.specificEpithet,
+        infraspecificEpithet: gbif.infraspecificEpithet,
+        taxonRank:            gbif.taxonRank,
+        collectionCode:       gbif.collectionCode,
+        family:               gbif.family,
+        eventDate:            gbif.eventDate,
+        recordedBy:           gbif.recordedBy,
+        country:              gbif.country,
+        waterBody:            gbif.waterBody,
+        stateProvince:        gbif.stateProvince,
+        county:               gbif.county,
+        municipality:         gbif.municipality,
+        locality:             gbif.locality,
+        decimalLatitude:      gbif.decimalLatitude,
+        decimalLongitude:     gbif.decimalLongitude,
+        institutionCode:      gbif.institutionCode,
+        identifiedBy:         gbif.identifiedBy
+      });
+
+      synced++;
+    }
+
+    res.status(200).send({ 
+      message: `GBIF sync complete. ${synced} updated, ${skipped} skipped.` 
+    });
+
+  } catch (err) {
+    console.error("GBIF sync error:", err);
+    res.status(500).send({ message: "GBIF sync failed.", error: err.message });
+  }
+};
   
   module.exports = {
     upload,
@@ -430,6 +497,7 @@ const downloadFile = (req, res) => {
     //deleteFiles,
     createSourceMod,
     //resetFiles
-    deleteSequences
+    deleteSequences,
+    syncGBIF
 
   };

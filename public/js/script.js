@@ -70,7 +70,16 @@ let userInfo = {}
     //event listener to sync GBIF data
     $('#syncGBIF').submit(function(e) {
         e.preventDefault()
-        getAllSequences()
+        $.ajax({
+            url: '/api/csv/syncGBIF/' + userInfo.nickname,
+            method: 'POST'
+        })
+        .then(function(response) {
+            alert(response.message);
+        })
+        .catch(function() {
+            alert('GBIF sync failed. Check the console for details.');
+        });
     })
 
 
@@ -142,100 +151,6 @@ let userInfo = {}
 
 //FUNCTIONS
 //---------------------------------------------------------------------------------------------------------------
-    //function to query every record in the database and then prefrom API call to GBIF with data returned
-    function getAllSequences() {
-        $.ajax({
-            url: "/api/csv/sequences/"+userInfo.nickname,
-            type: "GET"
-        })
-        .then((data) => {
-            sequences = data
-            getGBIF()
-        })
-    }
-
-
-    //Loop through sequences returned from DB and preform GBIF API query for each. Then add selected data to the sequences object.
-    function getGBIF() {
-        showAlert=true
-        for (let i = 0; i < sequences.length; i++){
-            let queryURL = "https://api.gbif.org/v1/occurrence/search/?catalogNumber="+sequences[i].catalogNumber+"&collectionCode="+sequences[i].collectionCode
-            $.ajax({
-                url: queryURL,
-                method: "GET",
-            }).then(function(response){
-                var gbifRecord = response.results[0]
-            //add selected fields from GBIF to the seqences object
-                //scientificName
-                sequences[i].scientificName = gbifRecord.scientificName
-                //species
-                sequences[i].species = gbifRecord.species
-                //genus
-                sequences[i].genus = gbifRecord.genus
-                //specificEpithet
-                sequences[i].specificEpithet = gbifRecord.specificEpithet
-                //infraspecificEpithet
-                sequences[i].infraspecificEpithet = gbifRecord.infraspecificEpithet
-                //taxonRank
-                sequences[i].taxonRank = gbifRecord.taxonRank
-                //collectionCode
-                sequences[i].collectionCode = gbifRecord.collectionCode
-                //family
-                sequences[i].family = gbifRecord.family
-                //eventDate
-                sequences[i].eventDate = gbifRecord.eventDate
-                //recordedBy
-                sequences[i].recordedBy = gbifRecord.recordedBy
-                //country
-                sequences[i].country = gbifRecord.country
-                //waterBody
-                sequences[i].waterBody = gbifRecord.waterBody
-                //stateProvince
-                sequences[i].stateProvince = gbifRecord.stateProvince
-                //county
-                sequences[i].county = gbifRecord.county
-                //municipality
-                sequences[i].municipality = gbifRecord.municipality
-                //locality
-                sequences[i].locality = gbifRecord.locality
-                //decimalLatitude
-                sequences[i].decimalLatitude = gbifRecord.decimalLatitude
-                //decimalLongitude
-                sequences[i].decimalLongitude = gbifRecord.decimalLongitude
-                //institution code
-                sequences[i].institutionCode = gbifRecord.institutionCode
-                //identifiedBy
-                sequences[i].identifiedBy = gbifRecord.identifiedBy                
-            }).done(function() {
-                    updateRecords()
-                if (showAlert==true) {
-                    alert ("GBIF data syncing, this may take a few minutes.");
-                    showAlert = false;
-                }
-            }).catch((error) => {
-                response.status(500).send({
-                  message: "Failed to sync data from GBIF.",
-                  error: error.message,
-                });
-              });
-        }
-    }
-
-    //Update each record in the database with the newly requested data from GBIF.
-    function updateRecords() {
-        for (let i = 0; i < sequences.length; i++){
-            $.ajax({
-                url: "/api/csv/update",
-                type: "PUT",
-                data: sequences[i]
-            }).catch((error) => {
-                res.status(500).send({
-                  message: "Failed to update database.",
-                  error: error.message,
-                });
-              });
-        }
-    }
 
     //Show all sequences in select list
     function listSequences() {

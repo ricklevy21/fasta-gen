@@ -37,6 +37,9 @@ let routes = (app) => {
   //GET /api/csv/files
   router.get("/files/:name", csvController.downloadFile);
 
+  //POST /api/csv/syncGBIF
+  router.post("/syncGBIF/:nickname", csvController.syncGBIF);
+
   //truncate fasta and mods files on backend
   router.post("/truncateFiles", csvController.truncateFiles);
 

@@ -383,30 +383,14 @@ let userInfo = {}
 
     //download the fasta file to the client
     function requestFileForDownload(){
-        $.ajax({
-            url: "/api/csv/files/"+downloadFileName,
-            method: "GET"
-        })
-        .then(function() {
-            var url = 'localhost:8080/api/csv/files/'+downloadFileName;
-            $("#downloadFasta").attr("href", url)
-            $("#downloadFasta").show()
-            
-        })
+        $("#downloadFasta").attr("href", "/api/csv/files/" + downloadFileName)
+        $("#downloadFasta").show()
     }
 
     //download the source mod file to the client
     function requestModsFileForDownload(){
-        $.ajax({
-            url: "/api/csv/files/"+sourceModFileName,
-            method: "GET"
-        })
-        .then(function() {
-            var url = 'localhost:8080/api/csv/files/'+sourceModFileName;
-            $("#downloadSourceMod").attr("href", url)
-            $("#downloadSourceMod").show()
-            
-        })
+        $("#downloadSourceMod").attr("href", "/api/csv/files/" + sourceModFileName)
+        $("#downloadSourceMod").show()
     }
 
     //download the template file to the client

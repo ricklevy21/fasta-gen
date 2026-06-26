@@ -260,6 +260,31 @@ const getLSUSequences = (req, res) => {
         });
       });
   };
+function querySeqsForDownload(){
+    createSourceMod()
+
+    // Build an array of ajax promises, one per selected sequence
+    let requests = queryList.map(function(id) {
+        return $.ajax({
+            url: "/api/csv/sequencesDownload/" + id,
+            method: "GET",
+            contentType: "application/json"
+        }).then(function(res) {
+            downloadFileName = res[0];
+            sourceModFileName = res[1];
+        });
+    });
+
+    // Only trigger the download once ALL records have been written
+    Promise.all(requests)
+        .then(function() {
+            requestFileForDownload();
+            requestModsFileForDownload();
+        })
+        .catch(function(error) {
+            console.log("Failed to retrieve data from database.", error);
+        });
+}
 
 //function that writes data to a FASTA file
 function writeFASTA(fileName, data) {
@@ -295,6 +320,7 @@ function generateFASTA(data) {
     return `> ${data.SeqID} [organism=${data.genus} ${data.specificEpithet}] ${data.scientificName} Specimen Voucher ${data.catalogNumber} ${data.sequenceTitle}\n${data.LSUrRNA_28s}`;
   }
 }
+
 
 //function that defines how to write data the source modifier file
 function generateSourceModData(data) {
